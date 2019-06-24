@@ -1,5 +1,4 @@
-package modeldao;
-
+package model.dao;
 
 import com.mysql.jdbc.PreparedStatement;
 import connection.ConnectionFactory;
@@ -22,7 +21,7 @@ public class PedidoDAO {
                 
         try{
             stmt = (PreparedStatement) con.prepareStatement(cmdSQL);
-            stmt.setString(1, p.getNome());         //pega o nome
+            stmt.setInt(1, p.getIdpedido()); //vai dar certo?? -- mudei de setString pra setInt
             
             //preparando a sql para executar/update,usamos o executeUpdate porque é um comando DML(Manipulacao de dados).
             stmt.executeUpdate();
@@ -42,7 +41,7 @@ public class PedidoDAO {
             
             try{
                 stmt = (PreparedStatement) con.prepareStatement(cmdSQL);
-                stmt.setString(1, p.getNome());
+                stmt.setInt(1, p.getIdpedido()); //vai dar certo?? -- mudei de setString pra setInt
                 stmt.executeUpdate();
 
                 JOptionPane.showMessageDialog(null, "Pedido removido com sucesso!");

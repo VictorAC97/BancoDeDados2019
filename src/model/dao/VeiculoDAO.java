@@ -68,7 +68,7 @@ public class VeiculoDAO {
             rs = stmt.executeQuery();
             
             while(rs.next()){  
-                Veiculo categoria = new Veiculo();
+                
                 Veiculo veiculo = new Veiculo();
                 veiculo.setPlaca(rs.getString("PLACA"));
                 veiculo.setAnofab(rs.getInt("ANOFAB"));

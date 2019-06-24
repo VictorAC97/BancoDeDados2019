@@ -36,7 +36,7 @@ public class SetorDAO {
         }           
     }
     
-    public void removerCategoria(Setor s){
+    public void removerSetor(Setor s){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
             String cmdSQL = "DELETE FROM SETOR WHERE NOME = ?";

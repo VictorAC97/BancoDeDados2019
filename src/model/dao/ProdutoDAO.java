@@ -39,7 +39,7 @@ public class ProdutoDAO {
     public void removerProduto(Produto p){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
-            String cmdSQL = "DELETE FROM CATEGORIA WHERE NOME = ?";
+            String cmdSQL = "DELETE FROM PRODUTO WHERE NOME = ?";
             
             try{
                 stmt = (PreparedStatement) con.prepareStatement(cmdSQL);
@@ -81,7 +81,6 @@ public class ProdutoDAO {
                 
             }
             
-
         }
         
         catch (SQLException ex){

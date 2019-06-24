@@ -21,7 +21,7 @@ public class OperadorDAO {
                 
         try{
             stmt = (PreparedStatement) con.prepareStatement(cmdSQL);
-            stmt.setString((1, o.getId_funcionario()));         //pega o nome
+            stmt.setInt(1, o.getId_funcionario()); //vai dar certo?? -- mudei de setString pra setInt
             
             //preparando a sql para executar/update,usamos o executeUpdate porque é um comando DML(Manipulacao de dados).
             stmt.executeUpdate();
@@ -41,7 +41,7 @@ public class OperadorDAO {
             
             try{
                 stmt = (PreparedStatement) con.prepareStatement(cmdSQL);
-                stmt.setString(1, o.getId_funcionario());
+                stmt.setInt(1, o.getId_funcionario());
                 stmt.executeUpdate();
 
                 JOptionPane.showMessageDialog(null, "Operador removido com sucesso!");

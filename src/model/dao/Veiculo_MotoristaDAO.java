@@ -1,7 +1,5 @@
 package model.dao;
 
-import model.bean.Veiculo_Motorista;
-
 import com.mysql.jdbc.PreparedStatement;
 import connection.ConnectionFactory;
 import java.sql.Connection;
@@ -73,7 +71,6 @@ public class Veiculo_MotoristaDAO {
                 vmotorista.setId_motorista(rs.getInt("ID_MOTORISTA"));
                 vmotorista.setId_placa(rs.getString("ID_PLACA"));
                 vmotoristas.add(vmotorista);
-   
             }
             
         }

@@ -1,7 +1,5 @@
 package model.dao;
 
-import model.bean.Tipo_Funcionario;
-
 import com.mysql.jdbc.PreparedStatement;
 import connection.ConnectionFactory;
 import java.sql.Connection;
@@ -12,18 +10,18 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import model.bean.Categoria;
+import model.bean.Tipo_Funcionario;
 
 public class Tipo_FuncionarioDAO {
 
     public void inserirTipo_Funcionario(Tipo_Funcionario tp){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
-            String cmdSQL = "INSERT INTO TIPO_FUNCIONARIO(NOME) VALUES(?)";
+            String cmdSQL = "INSERT INTO TIPO_FUNCIONARIO(ID_TIPOFUNCIONARIO) VALUES(?)";
                 
         try{
             stmt = (PreparedStatement) con.prepareStatement(cmdSQL);
-            stmt.setString(1, tp.getNome());         //pega o nome
+            stmt.setInt(1, tp.getIdtipo_funcionario());         //pega o nome
             
             //preparando a sql para executar/update,usamos o executeUpdate porque é um comando DML(Manipulacao de dados).
             stmt.executeUpdate();
@@ -43,7 +41,7 @@ public class Tipo_FuncionarioDAO {
             
             try{
                 stmt = (PreparedStatement) con.prepareStatement(cmdSQL);
-                stmt.setString(1, tp.getNome());
+                stmt.setInt(1, tp.getIdtipo_funcionario());
                 stmt.executeUpdate();
 
                 JOptionPane.showMessageDialog(null, "Tipo de Funcionario removido com sucesso!");
@@ -75,7 +73,6 @@ public class Tipo_FuncionarioDAO {
 
                 tipos.add(tipo);
             }
-            
 
         }
         
