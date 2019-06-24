@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package transportadoravilg;
+import java.util.List;
+import model.bean.Categoria;
+import model.dao.CategoriaDAO;
 import view.TelaCadastroCliente;
 import view.TelaPrincipal;
 
@@ -19,8 +22,7 @@ public class Main {
     public static void main(String[] args) {    
         
         TelaPrincipal telapri = new TelaPrincipal();
-        telapri.setVisible(true);
-        
+        telapri.setVisible(true);  
 
     }
     

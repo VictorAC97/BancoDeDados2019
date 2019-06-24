@@ -296,11 +296,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarFuncionarioActionPerformed
-        // TODO add your handling code here:
+        TelaCadastroFuncionario telaCadFunc = new TelaCadastroFuncionario();
+        jDesktopPaneTelaPrincipal.add(telaCadFunc);
+        telaCadFunc.setVisible(true);
+        
     }//GEN-LAST:event_CadastrarFuncionarioActionPerformed
 
     private void RemoverFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoverFuncionarioActionPerformed
-        // TODO add your handling code here:
+        TelaRemoverFuncionario telaRevFunc = new TelaRemoverFuncionario();
+        jDesktopPaneTelaPrincipal.add(telaRevFunc);
+        telaRevFunc.setVisible(true);
     }//GEN-LAST:event_RemoverFuncionarioActionPerformed
 
     private void CadastrarCaminhaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarCaminhaoActionPerformed
@@ -312,7 +317,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_RemoverCaminhaoActionPerformed
 
     private void CadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarProdutoActionPerformed
-        // TODO add your handling code here:
+        TelaCadastroProduto telaCadProd = new TelaCadastroProduto();
+        jDesktopPaneTelaPrincipal.add(telaCadProd);
+            telaCadProd.setVisible(true);
     }//GEN-LAST:event_CadastrarProdutoActionPerformed
 
     private void RemoverProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoverProdutoActionPerformed
@@ -324,7 +331,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_NovoPedidoActionPerformed
 
     private void RemoverClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoverClienteActionPerformed
-        // TODO add your handling code here:
+        TelaRemoverCliente telaRevUser = new TelaRemoverCliente();
+        jDesktopPaneTelaPrincipal.add(telaRevUser);
+        telaRevUser.setVisible(true);
+        
+        
     }//GEN-LAST:event_RemoverClienteActionPerformed
 
     private void CadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarClienteActionPerformed

@@ -278,20 +278,13 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
                 //AQUI VAMOS CRIAR UMA TUPLA NA TABELA CLIENTE, QUANDO CLICAR NO BOTAO CADASTRAR NA TELA CADASTRO CLIENTE!
-          
-                
-                JOptionPane.showMessageDialog(null, "DADOS A SEREM ANEXADOS:"+
-                                                    "\nCPF/CNPJ: "+txtIdCliente.getText()+
-                                                    "\nNome: "+txtNomeCliente.getText().toUpperCase()+
-                                                    "\nTELEFONE: "+txtTelCliente.getText()+
-                                                    "\nCIDADE: "+txtCidadeCliente.getText().toUpperCase()+
-                                                    "\nBAIRRO: "+txtBairroCliente.getText().toUpperCase()+
-                                                    "\nCOMPL: "+txtComplCliente.getText().toUpperCase()+
-                                                    "\nRUA: "+txtRuaCliente.getText().toUpperCase()+
-                                                    "\nNUMERO: "+txtNumCliente.getText()+
-                                                    "\nCEP: "+txtCepCliente.getText()+
-                                                    "\nUF: "+txtUfCliente.getText().toUpperCase()
-                                            );
+          if(txtIdCliente.getText().equals("")||txtNomeCliente.getText().equals("")||txtTelCliente.getText().equals("")||
+             txtCidadeCliente.getText().equals("")||txtBairroCliente.getText().equals("")||txtComplCliente.getText().equals("")||
+             txtRuaCliente.getText().equals("")||txtNumCliente.getText().equals("")||txtCepCliente.getText().equals("")||txtUfCliente.getText().equals(""))
+          {
+              JOptionPane.showMessageDialog(null,"Preencha todos os campos","Aviso",JOptionPane.WARNING_MESSAGE);
+              return;
+          }
                 
                Cliente cl = new Cliente();       
                ClienteDAO dao = new ClienteDAO();
@@ -308,19 +301,7 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
                cl.setUf(txtUfCliente.getText().toUpperCase());
                
                dao.inserirCliente(cl);  //INSERE NO BANCO DE DADOS
-               
-                //mostrando no terminal os dados
-                System.out.println("Nome: "+cl.getNome());
-                System.out.println("ID: "+cl.getId());
-                System.out.println("TELEFONE: "+cl.getTelefone());
-                System.out.println("CIDADE: "+cl.getCidade());
-                System.out.println("BAIRRO: "+cl.getBairro());
-                System.out.println("COMPL: "+cl.getCompl());
-                System.out.println("RUA: "+cl.getRua());
-                System.out.println("NUMERO: "+cl.getNumero());
-                System.out.println("CEP: "+cl.getCep());
-                System.out.println("UF: "+cl.getUf());
-                 
+    
         //LIMPAR OS CAMPOS DE CADASTRO CLIENTE
         txtNomeCliente.setText("");
         txtIdCliente.setText("");

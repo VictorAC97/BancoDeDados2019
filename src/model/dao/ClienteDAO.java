@@ -8,6 +8,7 @@ package model.dao;
 import com.mysql.jdbc.PreparedStatement;
 import java.sql.Connection;
 import connection.ConnectionFactory;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,12 +45,69 @@ public class ClienteDAO {
             JOptionPane.showMessageDialog(null, "Cliente cadastrado, bem vindo! "+c.getNome());
         
         } catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrado! \nERRO: "+ex);
+            JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar! \nERRO: "+ex);
         }finally{
             ConnectionFactory.closeConnection(con, stmt);
         }   
-    
-        
+     
     }
+    
+    public void removerCliente(Cliente c){
+            Connection con = ConnectionFactory.getConnection();
+            PreparedStatement stmt = null;
+
+            String cmdSQL = "DELETE FROM CLIENTE WHERE IDCLIENTE = ?";
+            
+        try{
+            stmt = (PreparedStatement) con.prepareStatement(cmdSQL);
+            stmt.setString(1, c.getId());
+            stmt.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Cliente removido com sucesso!");
+            
+        } catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Erro ao excluir! \nERRO: "+ex);
+        }
+            
+    }
+    
+    public Cliente consultarCliente(Cliente c){
+            
+            try{
+                Connection con = ConnectionFactory.getConnection();
+                PreparedStatement stmt = null;
+                
+                Cliente cli = new Cliente();    //alvo
+                
+                String cmdSQL = "SELECT * FROM CLIENTE WHERE IDCLIENTE = ?";
+                
+                stmt = (PreparedStatement) con.prepareStatement(cmdSQL);
+                stmt.setString(1, c.getId());
+                
+                ResultSet res = stmt.executeQuery();
+
+                // usar c.get() ta dando errado se eu quiser confirmar os dados antes de remover, ja tentei usar cli.setId(res.getId()); e nao da certo: cannot find symbol 
+                if(res.next()){
+                        cli.setId(c.getId());
+                        cli.setNome(c.getNome());
+                        cli.setTelefone(c.getTelefone());
+                        cli.setCidade(c.getCidade());
+                        cli.setBairro(c.getBairro());
+                        cli.setRua(c.getRua());
+                        cli.setNumero(c.getNumero());
+                        cli.setCompl(c.getCompl());
+                        cli.setCep(c.getCep());
+                        cli.setUf(c.getUf());
+                }
+           
+                return cli;
+           
+          }catch(SQLException ex){
+                JOptionPane.showMessageDialog(null, "Erro ao consultar! \nERRO: "+ex);
+                return null; //retornar um cliente vazio
+          }             
+
+    }
+       
          
 }
