@@ -23,20 +23,21 @@ public class FuncionarioDAO {
         
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
-            String cmdSQL = "INSERT INTO FUNCIONARIO(NOME,SEXO,TELEFONE,DATAENT,HORAS,ID_TIPO_FUNCIONARIO) VALUES(?,?,?,?,?,?)";
-                                                                                                               //(1,2,3,4,5,6)                  
+            String cmdSQL = "INSERT INTO FUNCIONARIO(IDFUNCIONARIO,NOME,SEXO,TELEFONE,DATAENT,HORAS,ID_TIPO_FUNCIONARIO) VALUES(?,?,?,?,?,?,?)";
+                                                                                                                             //(1,2,3,4,5,6,7)                  
         try{
             stmt = (PreparedStatement) con.prepareStatement(cmdSQL);
-            stmt.setString(1, f.getNome());             //pega o nome
-            stmt.setString(2, f.getSexo());             //pega o sexo
-            stmt.setString(3, f.getTelefone());         //pega o telefone
-            stmt.setDate(4, (Date)f.getDataent());      //pega a data de entrada
-            stmt.setInt(5, f.getHoras());               //pega as horas trabalhadas
-            stmt.setInt(6, f.getId_tipo_funcionario()); //pega o tipo de funcionario
+            stmt.setInt(1, f.getId_tipo_funcionario()); //pega a matricula
+            stmt.setString(2, f.getNome());             //pega o nome
+            stmt.setString(3, f.getSexo());             //pega o sexo
+            stmt.setString(4, f.getTelefone());         //pega o telefone
+            stmt.setDate(5, (Date) f.getDataent());      //pega a data de entrada
+            stmt.setInt(6, f.getHoras());               //pega as horas trabalhadas
+            stmt.setInt(7, f.getId_tipo_funcionario()); //pega o tipo de funcionario
             
             //preparando a sql para executar/update,usamos o executeUpdate porque é um comando DML(Manipulacao de dados).
             stmt.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Funcionario cadastrado, bem vindo! "+f.getNome());
+            JOptionPane.showMessageDialog(null, "Funcionário cadastrado, bem vindo! "+f.getNome());
         
         } catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar! \nERRO: "+ex);
@@ -51,14 +52,14 @@ public class FuncionarioDAO {
             Connection con = ConnectionFactory.getConnection();
             PreparedStatement stmt = null;
 
-            String cmdSQL = "DELETE FROM FUNCIONARIO WHERE NOME = ?";
+            String cmdSQL = "DELETE FROM FUNCIONARIO WHERE IDFUNCIONARIO = ?";
             
         try{
             stmt = (PreparedStatement) con.prepareStatement(cmdSQL);
-            stmt.setString(1, f.getNome());
+            stmt.setInt(1, f.getIdfuncionario());
             stmt.executeUpdate();
             
-            JOptionPane.showMessageDialog(null, "Cliente removido com sucesso!");
+            JOptionPane.showMessageDialog(null, "Funcionário removido com sucesso!");
             
         } catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "Erro ao excluir! \nERRO: "+ex);
