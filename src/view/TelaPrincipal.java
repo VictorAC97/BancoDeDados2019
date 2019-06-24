@@ -167,6 +167,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         ListarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/table.png"))); // NOI18N
         ListarCliente.setText("Listar");
+        ListarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListarClienteActionPerformed(evt);
+            }
+        });
         MenuCliente.add(ListarCliente);
 
         RemoverCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_delete.png"))); // NOI18N
@@ -366,6 +371,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowOpened
+
+    private void ListarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ListarClienteActionPerformed
 
     /**
      * @param args the command line arguments

@@ -60,7 +60,6 @@ public class CategoriaDAO {
     }
     
     public List<Categoria> consultaCategoria(){
-        
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -79,15 +78,9 @@ public class CategoriaDAO {
             }
             
 
-        }
-        
-        catch (SQLException ex){
-            System.err.println("Erro ao recuperar os dados."+ex.getMessage());
-        }
-        catch (Exception ex){
-            System.err.println("Erro geral."+ex.getMessage());
-        }
-        finally{
+        } catch (SQLException ex) {
+            
+        }finally{
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
         return categorias;

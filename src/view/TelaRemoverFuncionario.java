@@ -35,20 +35,18 @@ public class TelaRemoverFuncionario extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtNomeFuncionario = new javax.swing.JTextField();
+        txtIdFuncionario = new javax.swing.JTextField();
         btnRemover = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
 
         setClosable(true);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Remover Funcionario"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Remover Funcionário"));
 
-        jLabel1.setText("Nome:");
+        jLabel1.setText("Matricula:");
 
-        txtNomeFuncionario.addActionListener(new java.awt.event.ActionListener() {
+        txtIdFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNomeFuncionarioActionPerformed(evt);
+                txtIdFuncionarioActionPerformed(evt);
             }
         });
 
@@ -59,40 +57,29 @@ public class TelaRemoverFuncionario extends javax.swing.JInternalFrame {
             }
         });
 
-        btnCancelar.setText("Cancelar");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PROFISSÃO", "MOTORISTA", "OPERADOR" }));
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(61, 61, 61)
+                .addGap(29, 29, 29)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtNomeFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54)
-                        .addComponent(btnRemover, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtIdFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNomeFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRemover)
-                    .addComponent(btnCancelar)))
+                    .addComponent(jLabel1)
+                    .addComponent(txtIdFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addComponent(btnRemover)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -109,60 +96,25 @@ public class TelaRemoverFuncionario extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNomeFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeFuncionarioActionPerformed
+    private void txtIdFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdFuncionarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeFuncionarioActionPerformed
+    }//GEN-LAST:event_txtIdFuncionarioActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
         Funcionario f = new Funcionario();
         FuncionarioDAO dao = new FuncionarioDAO();
 
         //faz um busca e retorna a caixa abaixo com as infos
-        f.setNome(txtNomeFuncionario.getText());
-
-        Funcionario alvo = dao.consultarFuncionario(f);
-        /*
-        JOptionPane.showMessageDialog(null, "CLIENTE:"+
-                                                    "\nCPF/CNPJ: "+alvo.getId()+
-                                                    "\nNome: "+alvo.getNome()+
-                                                    "\nTELEFONE: "+alvo.getTelefone()+
-                                                    "\nCIDADE: "+alvo.getCidade()+
-                                                    "\nBAIRRO: "+alvo.getBairro()+
-                                                    "\nCOMPL: "+alvo.getCompl()+
-                                                    "\nRUA: "+alvo.getRua()+
-                                                    "\nNUMERO: "+alvo.getNumero()+
-                                                    "\nCEP: "+alvo.getCep()+
-                                                    "\nUF: "+alvo.getUf()
-                                            );
-        */                                    
-        
-        if(alvo.getNome() != null)
-        {
-            int returnValue = JOptionPane.showConfirmDialog(null, "Deseja realmente remover?", "Confirmar Remoção", JOptionPane.YES_NO_OPTION);
-                if(returnValue == 0)
-                {
-                    dao.removerFuncionario(alvo);
-                    txtNomeFuncionario.setText("");
-                }
-                if(returnValue == 1)
-                {
-                    JOptionPane.showMessageDialog(null, "Operação abortada.");
-                } 
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(null, "Cliente não existe.");
-        }
+        f.setIdfuncionario(Integer.parseInt(txtIdFuncionario.getText()));
+        dao.removerFuncionario(f);
 
     }//GEN-LAST:event_btnRemoverActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnRemover;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtNomeFuncionario;
+    private javax.swing.JTextField txtIdFuncionario;
     // End of variables declaration//GEN-END:variables
 }
