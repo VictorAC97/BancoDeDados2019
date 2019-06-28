@@ -353,7 +353,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_CadastrarClienteActionPerformed
 
     private void EditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarClienteActionPerformed
-        // TODO add your handling code here:
+        TelaEditarCliente telaEditCli = new TelaEditarCliente();
+        jDesktopPaneTelaPrincipal.add(telaEditCli);
+        telaEditCli.setVisible(true);
     }//GEN-LAST:event_EditarClienteActionPerformed
 
     private void ListarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarPedidoActionPerformed

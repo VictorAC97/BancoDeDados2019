@@ -234,6 +234,7 @@ public class TelaCadastroProduto extends javax.swing.JInternalFrame {
         
         cbCategoria.removeItem(c);
         dao.removerCategoria(c);
+        dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void cbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCategoriaActionPerformed

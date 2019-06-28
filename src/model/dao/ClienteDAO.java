@@ -46,7 +46,7 @@ public class ClienteDAO {
             
             //preparando a sql para executar/update,usamos o executeUpdate porque é um comando DML(Manipulacao de dados).
             stmt.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Cliente cadastrado, bem vindo! "+c.getNome());
+            JOptionPane.showMessageDialog(null,"Cliente cadastrado!\nSeja bem vindo(a) "+c.getNome()+"!");
         
         } catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar! \nERRO: "+ex);
@@ -60,7 +60,7 @@ public class ClienteDAO {
         
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
-            String cmdSQL = "UPDADE CLIENTE SET NOME = ?,TELEFONE = ?,UF = ?,CEP = ?,CIDADE = ?,BAIRRO = ?,RUA = ?,NUMERO = ?,COMPL = ? WHERE IDCLIENTE = ?";
+            String cmdSQL = "UPDATE CLIENTE SET NOME = ?,TELEFONE = ?,UF = ?,CEP = ?,CIDADE = ?,BAIRRO = ?,RUA = ?,NUMERO = ?,COMPL = ? WHERE IDCLIENTE = ?";
                                                     // 1,           2,     3,      4,         5,         6,      7,         8,        9                 ,10                  
         try{
             stmt = (PreparedStatement) con.prepareStatement(cmdSQL);
@@ -74,7 +74,7 @@ public class ClienteDAO {
             stmt.setInt(8, c.getNumero());          //pega o numero
             stmt.setString(9, c.getCompl());       //pega o complemento
             stmt.setString(10, c.getId());           //pega o cpf/cnpj
-            
+                        
             //preparando a sql para executar/update,usamos o executeUpdate porque é um comando DML(Manipulacao de dados).
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");

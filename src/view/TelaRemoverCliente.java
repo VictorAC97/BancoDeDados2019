@@ -35,7 +35,6 @@ public class TelaRemoverCliente extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         txtIdCliente = new javax.swing.JTextField();
         btnRemover = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -56,36 +55,28 @@ public class TelaRemoverCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        btnCancelar.setText("Cancelar");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(61, 61, 61)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnCancelar)
-                        .addGap(54, 54, 54)
-                        .addComponent(btnRemover))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnRemover, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtIdCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE))
                 .addContainerGap(82, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
+                .addContainerGap(26, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRemover)
-                    .addComponent(btnCancelar))
+                .addComponent(btnRemover)
                 .addContainerGap())
         );
 
@@ -114,9 +105,12 @@ public class TelaRemoverCliente extends javax.swing.JInternalFrame {
         //c.setId(txtIdCliente.getText());
         
         Cliente alvo = new Cliente();
-        alvo = dao.buscarCliente(txtIdCliente.getText());
-
-        JOptionPane.showMessageDialog(null, "CLIENTE:"+
+        alvo = dao.buscarCliente(txtIdCliente.getText());                            
+        
+        if(alvo.getId() != null)
+        {
+            
+            JOptionPane.showMessageDialog(null, "CLIENTE:"+
                                                     "\nCPF/CNPJ: "+alvo.getId()+
                                                     "\nNome: "+alvo.getNome()+
                                                     "\nTELEFONE: "+alvo.getTelefone()+
@@ -127,10 +121,8 @@ public class TelaRemoverCliente extends javax.swing.JInternalFrame {
                                                     "\nNUMERO: "+alvo.getNumero()+
                                                     "\nCEP: "+alvo.getCep()+
                                                     "\nUF: "+alvo.getUf()
-        );                                   
-        
-        if(alvo.getId() != null)
-        {
+            );
+            
             int returnValue = JOptionPane.showConfirmDialog(null, "Deseja realmente remover?", "Confirmar Remoção", JOptionPane.YES_NO_OPTION);
                 if(returnValue == 0)
                 {
@@ -146,12 +138,11 @@ public class TelaRemoverCliente extends javax.swing.JInternalFrame {
         {
             JOptionPane.showMessageDialog(null, "Cliente não existe.");
         }
-
+        dispose();  //fecha a jInternalFrame
     }//GEN-LAST:event_btnRemoverActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnRemover;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
