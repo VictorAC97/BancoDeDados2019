@@ -373,7 +373,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void ListarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarClienteActionPerformed
-        // TODO add your handling code here:
+        TelaListarClientes telaLisCli = new TelaListarClientes();
+        jDesktopPaneTelaPrincipal.add(telaLisCli);
+        telaLisCli.setVisible(true);
     }//GEN-LAST:event_ListarClienteActionPerformed
 
     /**

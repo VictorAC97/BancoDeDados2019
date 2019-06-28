@@ -5,23 +5,58 @@
  */
 package view;
 
+import connection.ConnectionFactory;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import model.bean.Cliente;
+import model.dao.ClienteDAO;
 
 /**
  *
  * @author Victor
  */
-public class TelaListarCliente extends javax.swing.JInternalFrame {
+public class TelaListarClientes extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form TelaListarCliente
+     * Creates new form TelaListarClientes
      */
-    public TelaListarCliente() {
+    public TelaListarClientes() {
         initComponents();
+        DefaultTableModel modelo = (DefaultTableModel) jTClientes.getModel();
+        jTClientes.setRowSorter(new TableRowSorter(modelo));
         
-      
+        preencherJTable();
     }
+    
+    public void preencherJTable(){
+        DefaultTableModel modelo = (DefaultTableModel) jTClientes.getModel();
+        
+        ClienteDAO dao = new ClienteDAO();
+        
+        for(Cliente c: dao.listarCliente()){
+            
+            modelo.addRow(new Object[]{
+                c.getId(),
+                c.getNome(),
+                c.getTelefone(),
+                c.getUf(),
+                c.getCep(),
+                c.getCidade(),
+                c.getBairro(),
+                c.getRua(),
+                c.getNumero(),
+                c.getCompl(),
 
+            });
+        }
+        
+    
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,31 +68,40 @@ public class TelaListarCliente extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTClientes = new javax.swing.JTable();
 
         setClosable(true);
+        setResizable(true);
+        setTitle("Listar Clientes");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Listar Clientes"));
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "CPF/CNPJ", "NOME", "TELEFONE", "UF", "CEP", "CIDADE", "BAIRRO", "RUA", "NUMERO", "COMPLEMENTO"
+                "CPF/CNPJ", "NOME", "TELEFONE", "UF", "CEP", "CIDADE", "BAIRRO", "RUA", "NUMERO", "COMPL"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTClientes.setName(""); // NOI18N
+        jScrollPane1.setViewportView(jTClientes);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 771, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 985, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -78,6 +122,6 @@ public class TelaListarCliente extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTClientes;
     // End of variables declaration//GEN-END:variables
 }

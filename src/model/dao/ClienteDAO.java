@@ -5,11 +5,15 @@
  */
 package model.dao;
 
-import com.mysql.jdbc.PreparedStatement;
+
+
 import java.sql.Connection;
 import connection.ConnectionFactory;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -71,43 +75,51 @@ public class ClienteDAO {
             
     }
     
-    public Cliente consultarCliente(Cliente c){
+    public Cliente buscarCliente(){
+        
+        
+        
+    }
+    
+    public List<Cliente> listarCliente(){
             
-            try{
                 Connection con = ConnectionFactory.getConnection();
                 PreparedStatement stmt = null;
+                ResultSet res = null;
                 
-                Cliente cli = new Cliente();    //alvo
+                List<Cliente> clientes = new ArrayList<>();
                 
-                String cmdSQL = "SELECT * FROM CLIENTE WHERE IDCLIENTE = ?";
+            try{
+
+                
+                String cmdSQL = "SELECT * FROM CLIENTE";
                 
                 stmt = (PreparedStatement) con.prepareStatement(cmdSQL);
-                stmt.setString(1, c.getId());
-                
-                ResultSet res = stmt.executeQuery();
+                res = stmt.executeQuery();
 
-                // usar c.get() ta dando errado se eu quiser confirmar os dados antes de remover, ja tentei usar cli.setId(res.getId()); e nao da certo: cannot find symbol 
-                if(res.next()){
-                        cli.setId(c.getId());
-                        cli.setNome(c.getNome());
-                        cli.setTelefone(c.getTelefone());
-                        cli.setCidade(c.getCidade());
-                        cli.setBairro(c.getBairro());
-                        cli.setRua(c.getRua());
-                        cli.setNumero(c.getNumero());
-                        cli.setCompl(c.getCompl());
-                        cli.setCep(c.getCep());
-                        cli.setUf(c.getUf());
+                while(res.next()){
+                        Cliente cli = new Cliente();
+                        
+                        cli.setId(res.getString("IDCLIENTE"));
+                        cli.setNome(res.getString("NOME"));
+                        cli.setTelefone(res.getString("TELEFONE"));
+                        cli.setCidade(res.getString("CIDADE"));
+                        cli.setBairro(res.getString("BAIRRO"));
+                        cli.setRua(res.getString("RUA"));
+                        cli.setNumero(res.getInt("NUMERO"));
+                        cli.setCompl(res.getString("COMPL"));
+                        cli.setCep(res.getString("CEP"));
+                        cli.setUf(res.getString("UF"));
+                        clientes.add(cli);
                 }
-           
-                return cli;
-           
-          }catch(SQLException ex){
-                JOptionPane.showMessageDialog(null, "Erro ao consultar! \nERRO: "+ex);
-                return null; //retornar um cliente vazio
-          }             
-
-    }
        
-         
+          }catch(SQLException ex){
+                JOptionPane.showMessageDialog(null, "Erro ao Listar! \nERRO: "+ex);
+                return null; //retornar um cliente vazio
+          }finally{
+                ConnectionFactory.closeConnection(con, stmt, res);
+            }             
+        return clientes;
+    }
+              
 }

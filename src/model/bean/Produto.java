@@ -8,6 +8,15 @@ public class Produto {
     private float peso;
     private float altura;
     private float largura;
+    private int id_categoria;
+
+    public int getId_categoria() {
+        return id_categoria;
+    }
+
+    public void setId_categoria(int id_categoria) {
+        this.id_categoria = id_categoria;
+    }
 
     public int getIdproduto() {
         return idproduto;

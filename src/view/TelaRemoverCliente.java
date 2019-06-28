@@ -114,7 +114,7 @@ public class TelaRemoverCliente extends javax.swing.JInternalFrame {
         //faz um busca e retorna a caixa abaixo com as infos
         c.setId(txtIdCliente.getText());
 
-        Cliente alvo = dao.consultarCliente(c);
+        //Cliente alvo = dao.consultarCliente(c);
         /*
         JOptionPane.showMessageDialog(null, "CLIENTE:"+
                                                     "\nCPF/CNPJ: "+alvo.getId()+
@@ -127,9 +127,9 @@ public class TelaRemoverCliente extends javax.swing.JInternalFrame {
                                                     "\nNUMERO: "+alvo.getNumero()+
                                                     "\nCEP: "+alvo.getCep()+
                                                     "\nUF: "+alvo.getUf()
-                                            );
-        */                                    
-        
+        ta bugado aqui, vou arrumar  
+        );                                   
+        */
         if(alvo.getId() != null)
         {
             int returnValue = JOptionPane.showConfirmDialog(null, "Deseja realmente remover?", "Confirmar Remoção", JOptionPane.YES_NO_OPTION);
