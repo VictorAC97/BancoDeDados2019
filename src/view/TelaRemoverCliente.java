@@ -108,14 +108,14 @@ public class TelaRemoverCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtIdClienteActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
-        Cliente c = new Cliente();
         ClienteDAO dao = new ClienteDAO();
 
         //faz um busca e retorna a caixa abaixo com as infos
-        c.setId(txtIdCliente.getText());
+        //c.setId(txtIdCliente.getText());
+        
+        Cliente alvo = new Cliente();
+        alvo = dao.buscarCliente(txtIdCliente.getText());
 
-        //Cliente alvo = dao.consultarCliente(c);
-        /*
         JOptionPane.showMessageDialog(null, "CLIENTE:"+
                                                     "\nCPF/CNPJ: "+alvo.getId()+
                                                     "\nNome: "+alvo.getNome()+
@@ -127,9 +127,8 @@ public class TelaRemoverCliente extends javax.swing.JInternalFrame {
                                                     "\nNUMERO: "+alvo.getNumero()+
                                                     "\nCEP: "+alvo.getCep()+
                                                     "\nUF: "+alvo.getUf()
-        ta bugado aqui, vou arrumar  
         );                                   
-        */
+        
         if(alvo.getId() != null)
         {
             int returnValue = JOptionPane.showConfirmDialog(null, "Deseja realmente remover?", "Confirmar Remoção", JOptionPane.YES_NO_OPTION);
