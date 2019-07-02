@@ -41,13 +41,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         MenuMenu = new javax.swing.JMenu();
         Pesquisar = new javax.swing.JMenuItem();
-        Logout = new javax.swing.JMenuItem();
         Sair = new javax.swing.JMenuItem();
         MenuProdutos = new javax.swing.JMenu();
         CadastrarProduto = new javax.swing.JMenuItem();
         EditarProduto = new javax.swing.JMenuItem();
         ListarProduto = new javax.swing.JMenuItem();
         RemoverProduto = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         MenuCliente = new javax.swing.JMenu();
         CadastrarCliente = new javax.swing.JMenuItem();
         EditarCliente = new javax.swing.JMenuItem();
@@ -98,12 +98,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         Pesquisar.setText("Pesquisar");
         MenuMenu.add(Pesquisar);
 
-        Logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/door.png"))); // NOI18N
-        Logout.setText("Logout");
-        MenuMenu.add(Logout);
-
         Sair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/door_out.png"))); // NOI18N
         Sair.setText("Sair");
+        Sair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SairActionPerformed(evt);
+            }
+        });
         MenuMenu.add(Sair);
 
         jMenuBar1.add(MenuMenu);
@@ -141,6 +142,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         MenuProdutos.add(RemoverProduto);
+
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/basket.png"))); // NOI18N
+        jMenuItem5.setText("Categorias");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        MenuProdutos.add(jMenuItem5);
 
         jMenuBar1.add(MenuProdutos);
 
@@ -380,6 +390,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
         telaLisCli.setVisible(true);
     }//GEN-LAST:event_ListarClienteActionPerformed
 
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        TelaCategoria telaCat = new TelaCategoria();
+        jDesktopPaneTelaPrincipal.add(telaCat);
+        telaCat.setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void SairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SairActionPerformed
+        System.exit(1);
+    }//GEN-LAST:event_SairActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -430,7 +450,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem ListarFuncionario;
     private javax.swing.JMenuItem ListarPedido;
     private javax.swing.JMenuItem ListarProduto;
-    private javax.swing.JMenuItem Logout;
     private javax.swing.JMenu MenuCaminhao;
     private javax.swing.JMenu MenuCliente;
     private javax.swing.JMenu MenuFuncionario;
@@ -447,5 +466,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem Sair;
     private javax.swing.JDesktopPane jDesktopPaneTelaPrincipal;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem5;
     // End of variables declaration//GEN-END:variables
 }

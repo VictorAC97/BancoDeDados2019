@@ -5,7 +5,7 @@
  */
 package model.dao;
 
-import com.mysql.jdbc.PreparedStatement;
+import java.sql.PreparedStatement;
 import connection.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.Date;

@@ -5,7 +5,13 @@ public class Categoria {
     private int idcategoria;
     private String nome;
 
-
+    public Categoria(){
+    }
+    
+    public Categoria(String nome){
+        this.nome = nome;
+    }
+        
     public int getIdcategoria() {
         return idcategoria;
     }

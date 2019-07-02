@@ -25,12 +25,12 @@ public class ProdutoDAO {
                                                                                                   //(1,2,3,4,5,6)                  
         try{
             stmt = (PreparedStatement) con.prepareStatement(cmdSQL);
-            stmt.setString(1, p.getNome());           //pega o cpf/cnpj
-            stmt.setFloat(2, p.getPreco());         //pega o nome
-            stmt.setFloat(3, p.getPeso());     //pega o telefone
-            stmt.setFloat(4, p.getAltura());           //pega a UF
-            stmt.setFloat(5, p.getLargura());          //pega o CEP
-            stmt.setInt(6, p.getId_categoria());       //pega a cidade
+            stmt.setString(1, p.getNome());           //pega a descricao
+            stmt.setFloat(2, p.getPreco());         //pega o preco
+            stmt.setFloat(3, p.getPeso());     //pega o peso
+            stmt.setFloat(4, p.getAltura());           //pega a altura
+            stmt.setFloat(5, p.getLargura());          //pega a largura
+            stmt.setInt(6, p.getCategoria().getIdcategoria());       //pega o id da categoria (orientacao a objeto)
             
             //preparando a sql para executar/update,usamos o executeUpdate porque é um comando DML(Manipulacao de dados).
             stmt.executeUpdate();
