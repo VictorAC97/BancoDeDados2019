@@ -60,9 +60,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         RemoverFuncionario = new javax.swing.JMenuItem();
         MenuCaminhao = new javax.swing.JMenu();
         CadastrarCaminhao = new javax.swing.JMenuItem();
-        EditarCaminhao = new javax.swing.JMenuItem();
-        ListarCaminhao = new javax.swing.JMenuItem();
-        RemoverCaminhao = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         MenuPedido = new javax.swing.JMenu();
         NovoPedido = new javax.swing.JMenuItem();
         EditarPedido = new javax.swing.JMenuItem();
@@ -234,8 +233,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuCaminhao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/car.png"))); // NOI18N
         MenuCaminhao.setText("Caminhão");
 
-        CadastrarCaminhao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/car_add.png"))); // NOI18N
-        CadastrarCaminhao.setText("Cadastrar");
+        CadastrarCaminhao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/car.png"))); // NOI18N
+        CadastrarCaminhao.setText("Caminhão");
         CadastrarCaminhao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CadastrarCaminhaoActionPerformed(evt);
@@ -243,22 +242,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         MenuCaminhao.add(CadastrarCaminhao);
 
-        EditarCaminhao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/database_edit.png"))); // NOI18N
-        EditarCaminhao.setText("Editar");
-        MenuCaminhao.add(EditarCaminhao);
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/car.png"))); // NOI18N
+        jMenuItem1.setText("Marca");
+        MenuCaminhao.add(jMenuItem1);
 
-        ListarCaminhao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/table.png"))); // NOI18N
-        ListarCaminhao.setText("Listar");
-        MenuCaminhao.add(ListarCaminhao);
-
-        RemoverCaminhao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/car_delete.png"))); // NOI18N
-        RemoverCaminhao.setText("Remover");
-        RemoverCaminhao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RemoverCaminhaoActionPerformed(evt);
-            }
-        });
-        MenuCaminhao.add(RemoverCaminhao);
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/car.png"))); // NOI18N
+        jMenuItem2.setText("Modelo");
+        MenuCaminhao.add(jMenuItem2);
 
         jMenuBar1.add(MenuCaminhao);
 
@@ -322,14 +312,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jDesktopPaneTelaPrincipal.add(telaRevFunc);
         telaRevFunc.setVisible(true);
     }//GEN-LAST:event_RemoverFuncionarioActionPerformed
-
-    private void CadastrarCaminhaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarCaminhaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CadastrarCaminhaoActionPerformed
-
-    private void RemoverCaminhaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoverCaminhaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_RemoverCaminhaoActionPerformed
 
     private void CadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarProdutoActionPerformed
         TelaCadastroProduto telaCadProd = new TelaCadastroProduto();
@@ -400,6 +382,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         System.exit(1);
     }//GEN-LAST:event_SairActionPerformed
 
+    private void CadastrarCaminhaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarCaminhaoActionPerformed
+        TelaCadastroCaminhao telaCadCam = new TelaCadastroCaminhao();
+        jDesktopPaneTelaPrincipal.add(telaCadCam);
+        telaCadCam.setVisible(true);
+    }//GEN-LAST:event_CadastrarCaminhaoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -440,12 +428,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem CadastrarCliente;
     private javax.swing.JMenuItem CadastrarFuncionario;
     private javax.swing.JMenuItem CadastrarProduto;
-    private javax.swing.JMenuItem EditarCaminhao;
     private javax.swing.JMenuItem EditarCliente;
     private javax.swing.JMenuItem EditarFuncionario;
     private javax.swing.JMenuItem EditarPedido;
     private javax.swing.JMenuItem EditarProduto;
-    private javax.swing.JMenuItem ListarCaminhao;
     private javax.swing.JMenuItem ListarCliente;
     private javax.swing.JMenuItem ListarFuncionario;
     private javax.swing.JMenuItem ListarPedido;
@@ -458,7 +444,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu MenuProdutos;
     private javax.swing.JMenuItem NovoPedido;
     private javax.swing.JMenuItem Pesquisar;
-    private javax.swing.JMenuItem RemoverCaminhao;
     private javax.swing.JMenuItem RemoverCliente;
     private javax.swing.JMenuItem RemoverFuncionario;
     private javax.swing.JMenuItem RemoverPedido;
@@ -466,6 +451,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem Sair;
     private javax.swing.JDesktopPane jDesktopPaneTelaPrincipal;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem5;
     // End of variables declaration//GEN-END:variables
 }

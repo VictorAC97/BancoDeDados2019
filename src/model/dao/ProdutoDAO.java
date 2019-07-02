@@ -32,7 +32,6 @@ public class ProdutoDAO {
             stmt.setFloat(5, p.getLargura());          //pega a largura
             stmt.setInt(6, p.getCategoria().getIdcategoria());       //pega o id da categoria (orientacao a objeto)
             
-            //preparando a sql para executar/update,usamos o executeUpdate porque é um comando DML(Manipulacao de dados).
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Produto cadastrado.");
         

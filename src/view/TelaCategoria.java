@@ -37,7 +37,7 @@ public class TelaCategoria extends javax.swing.JInternalFrame {
             
             modelo.addRow(new Object[]{
                 c.getNome(),
-                //c.getCategoria(),
+                c.getIdcategoria()
             });
         }
         
@@ -183,7 +183,8 @@ public class TelaCategoria extends javax.swing.JInternalFrame {
         
         String nome = txtCategoria.getText();
         c.setNome(nome.toUpperCase());
-        dao.create(c);
+        //dao.create(c);
+        dao.inserirCategoria(c);
         preencherJTable();
     }//GEN-LAST:event_btnCreateActionPerformed
 
