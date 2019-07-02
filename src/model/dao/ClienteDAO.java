@@ -5,11 +5,15 @@
  */
 package model.dao;
 
-import com.mysql.jdbc.PreparedStatement;
+
+
 import java.sql.Connection;
 import connection.ConnectionFactory;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -42,10 +46,41 @@ public class ClienteDAO {
             
             //preparando a sql para executar/update,usamos o executeUpdate porque é um comando DML(Manipulacao de dados).
             stmt.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Cliente cadastrado, bem vindo! "+c.getNome());
+            JOptionPane.showMessageDialog(null,"Cliente cadastrado!\nSeja bem vindo(a) "+c.getNome()+"!");
         
         } catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar! \nERRO: "+ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt);
+        }   
+        
+    }
+    
+    public void editarCliente(Cliente c){
+        
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+            String cmdSQL = "UPDATE CLIENTE SET NOME = ?,TELEFONE = ?,UF = ?,CEP = ?,CIDADE = ?,BAIRRO = ?,RUA = ?,NUMERO = ?,COMPL = ? WHERE IDCLIENTE = ?";
+                                                    // 1,           2,     3,      4,         5,         6,      7,         8,        9                 ,10                  
+        try{
+            stmt = (PreparedStatement) con.prepareStatement(cmdSQL);
+            stmt.setString(1, c.getNome());         //pega o nome
+            stmt.setString(2, c.getTelefone());     //pega o telefone
+            stmt.setString(3, c.getUf());           //pega a UF
+            stmt.setString(4, c.getCep());          //pega o CEP
+            stmt.setString(5, c.getCidade());       //pega a cidade
+            stmt.setString(6, c.getBairro());       //pega o bairro
+            stmt.setString(7, c.getRua());          //pega a rua
+            stmt.setInt(8, c.getNumero());          //pega o numero
+            stmt.setString(9, c.getCompl());       //pega o complemento
+            stmt.setString(10, c.getId());           //pega o cpf/cnpj
+                        
+            //preparando a sql para executar/update,usamos o executeUpdate porque é um comando DML(Manipulacao de dados).
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
+        
+        } catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Não foi possivel atualizar! \nERRO: "+ex);
         }finally{
             ConnectionFactory.closeConnection(con, stmt);
         }   
@@ -71,43 +106,80 @@ public class ClienteDAO {
             
     }
     
-    public Cliente consultarCliente(Cliente c){
+    public Cliente buscarCliente(String id){
+            Connection con = ConnectionFactory.getConnection();
+            PreparedStatement stmt = null;
+            ResultSet res = null;
+
+            String cmdSQL = "SELECT * FROM CLIENTE WHERE IDCLIENTE = "+id;
+                        
+            Cliente cli = new Cliente();
+                
+        try {
+                stmt = con.prepareStatement(cmdSQL);
+                res = stmt.executeQuery();
+                
+                while(res.next()){
+                    cli.setId(res.getString("IDCLIENTE"));
+                    cli.setNome(res.getString("NOME"));
+                    cli.setTelefone(res.getString("TELEFONE"));
+                    cli.setCidade(res.getString("CIDADE"));
+                    cli.setBairro(res.getString("BAIRRO"));
+                    cli.setRua(res.getString("RUA"));
+                    cli.setNumero(res.getInt("NUMERO"));
+                    cli.setCompl(res.getString("COMPL"));
+                    cli.setCep(res.getString("CEP"));
+                    cli.setUf(res.getString("UF"));
+                }
             
-            try{
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao buscar! \nERRO: "+ex);
+        }finally{
+                ConnectionFactory.closeConnection(con, stmt, res);
+            }  
+        
+        return cli;
+    }
+    
+    public List<Cliente> listarCliente(){
+            
                 Connection con = ConnectionFactory.getConnection();
                 PreparedStatement stmt = null;
+                ResultSet res = null;
                 
-                Cliente cli = new Cliente();    //alvo
+                List<Cliente> clientes = new ArrayList<>();
                 
-                String cmdSQL = "SELECT * FROM CLIENTE WHERE IDCLIENTE = ?";
+            try{
+
+                
+                String cmdSQL = "SELECT * FROM CLIENTE";
                 
                 stmt = (PreparedStatement) con.prepareStatement(cmdSQL);
-                stmt.setString(1, c.getId());
-                
-                ResultSet res = stmt.executeQuery();
+                res = stmt.executeQuery();
 
-                // usar c.get() ta dando errado se eu quiser confirmar os dados antes de remover, ja tentei usar cli.setId(res.getId()); e nao da certo: cannot find symbol 
-                if(res.next()){
-                        cli.setId(c.getId());
-                        cli.setNome(c.getNome());
-                        cli.setTelefone(c.getTelefone());
-                        cli.setCidade(c.getCidade());
-                        cli.setBairro(c.getBairro());
-                        cli.setRua(c.getRua());
-                        cli.setNumero(c.getNumero());
-                        cli.setCompl(c.getCompl());
-                        cli.setCep(c.getCep());
-                        cli.setUf(c.getUf());
+                while(res.next()){
+                        Cliente cli = new Cliente();
+                        
+                        cli.setId(res.getString("IDCLIENTE"));
+                        cli.setNome(res.getString("NOME"));
+                        cli.setTelefone(res.getString("TELEFONE"));
+                        cli.setCidade(res.getString("CIDADE"));
+                        cli.setBairro(res.getString("BAIRRO"));
+                        cli.setRua(res.getString("RUA"));
+                        cli.setNumero(res.getInt("NUMERO"));
+                        cli.setCompl(res.getString("COMPL"));
+                        cli.setCep(res.getString("CEP"));
+                        cli.setUf(res.getString("UF"));
+                        clientes.add(cli);
                 }
-           
-                return cli;
-           
-          }catch(SQLException ex){
-                JOptionPane.showMessageDialog(null, "Erro ao consultar! \nERRO: "+ex);
-                return null; //retornar um cliente vazio
-          }             
-
-    }
        
-         
+          }catch(SQLException ex){
+                JOptionPane.showMessageDialog(null, "Erro ao listar! \nERRO: "+ex);
+                return null; //retornar um cliente vazio
+          }finally{
+                ConnectionFactory.closeConnection(con, stmt, res);
+            }             
+        return clientes;
+    }
+              
 }
