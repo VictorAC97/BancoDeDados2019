@@ -29,7 +29,9 @@ public class VeiculoDAO {
         try {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, v.getPlaca());
+            
             stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Veiculo cadastrado.");
             return true;
             
         } catch (SQLException ex) {

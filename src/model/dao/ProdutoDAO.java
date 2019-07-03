@@ -5,10 +5,13 @@
  */
 package model.dao;
 
-import com.mysql.jdbc.PreparedStatement;
 import connection.ConnectionFactory;
+import java.sql.PreparedStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import model.bean.Produto;
 
@@ -17,7 +20,14 @@ import model.bean.Produto;
  * @author Victor
  */
 public class ProdutoDAO {
-    public void inserirProduto(Produto p){
+    
+    private Connection con = null;
+    
+    public ProdutoDAO(){
+        con = ConnectionFactory.getConnection();
+    }
+    
+    public boolean create(Produto p){
         
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
@@ -34,12 +44,82 @@ public class ProdutoDAO {
             
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Produto cadastrado.");
+            return true;
         
         } catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar! \nERRO: "+ex);
+            return false;
         }finally{
             ConnectionFactory.closeConnection(con, stmt);
         }   
      
     }
+    
+    public List<Produto> read(){
+        
+        String sql = "SELECT * FROM PRODUTO";
+        
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        List<Produto> produtos = new ArrayList<>();
+        
+        try {
+            stmt = con.prepareStatement(sql);
+            rs = stmt.executeQuery();
+                
+            while(rs.next()){
+                Produto p = new Produto();
+                p.setNome(rs.getString("NOME"));
+                produtos.add(p);
+            }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel listar! \nERRO: "+ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        
+        return produtos;
+    }
+    
+    public void update(Produto p){
+        
+        String sql = "UPDATE PRODUTO SET (NOME) = ? WHERE IDPRODUTO = ?";
+        
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, p.getNome());
+            stmt.setInt(2, p.getIdProduto());
+            
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!");
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar! \nERRO: "+ex);          
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt);
+        }
+        
+    }
+    
+    public void delete(Produto v){
+            
+        String cmdSQL = "DELETE FROM PRODUTO WHERE NOME = ?";
+        
+        PreparedStatement stmt = null;
+            
+        try{
+            stmt = (PreparedStatement) con.prepareStatement(cmdSQL);
+            stmt.setString(1, v.getNome());
+            stmt.executeUpdate();
+
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Erro ao excluir! \nERRO: "+ex);
+        }
+            
+    }
+    
 }
