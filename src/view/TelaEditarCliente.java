@@ -50,7 +50,7 @@ public class TelaEditarCliente extends javax.swing.JInternalFrame {
                 c.getBairro(),
                 c.getRua(),
                 c.getNumero(),
-                c.getCompl(),
+                c.getCompl()
 
             });
         }

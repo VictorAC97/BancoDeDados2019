@@ -49,7 +49,7 @@ public class TelaListarClientes extends javax.swing.JInternalFrame {
                 c.getBairro(),
                 c.getRua(),
                 c.getNumero(),
-                c.getCompl(),
+                c.getCompl()
 
             });
         }

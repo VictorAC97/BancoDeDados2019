@@ -5,6 +5,10 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+import model.bean.Produto;
+import model.dao.ProdutoDAO;
+
 /**
  *
  * @author Victor
@@ -16,6 +20,13 @@ public class TelaRemoverProduto extends javax.swing.JInternalFrame {
      */
     public TelaRemoverProduto() {
         initComponents();
+    
+        ProdutoDAO dao = new ProdutoDAO();
+          
+          dao.read().forEach((p) -> {
+              cbRemoverProdutos.addItem(p);
+        });
+        
     }
 
     /**
@@ -36,11 +47,14 @@ public class TelaRemoverProduto extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Remover Produto"));
 
-        cbRemoverProdutos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         btnFechar.setText("Fechar");
 
         btnConfirmar.setText("Remover");
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -82,11 +96,41 @@ public class TelaRemoverProduto extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        Produto p = new Produto();
+        ProdutoDAO dao = new ProdutoDAO();
+        
+        p = (Produto) cbRemoverProdutos.getSelectedItem();
+
+            
+            JOptionPane.showMessageDialog(null, "PRODUTO:"+
+                                                    "\nID: "+p.getIdProduto()+
+                                                    "\nNOME: "+p.getNome()+
+                                                    "\nPREÇO: "+p.getPreco()+
+                                                    "\nALTURA: "+p.getAltura()+
+                                                    "\nLARGURA: "+p.getLargura()+
+                                                    "\nPESO: "+p.getPeso()+
+                                                    "\nCATEGORIA: "+p.getCategoria() //TALVEZ VAI BUGAR
+                                                    
+                    
+
+            );
+            
+        int returnValue = JOptionPane.showConfirmDialog(null, "Deseja realmente remover?", "Confirmar Remoção", JOptionPane.YES_NO_OPTION);
+            if(returnValue == 0)
+                dao.delete(p);
+            else
+                JOptionPane.showMessageDialog(null, "Operação abortada.");
+                 
+        dispose(); 
+        
+    }//GEN-LAST:event_btnConfirmarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton btnFechar;
-    private javax.swing.JComboBox<String> cbRemoverProdutos;
+    private javax.swing.JComboBox<Object> cbRemoverProdutos;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import model.bean.Categoria;
 import model.bean.Produto;
 
 /**
@@ -122,6 +121,39 @@ public class ProdutoDAO {
             JOptionPane.showMessageDialog(null, "Erro ao excluir! \nERRO: "+ex);
         }
             
+    }
+    
+    public Produto buscarProduto(int id){
+            Connection con = ConnectionFactory.getConnection();
+            PreparedStatement stmt = null;
+            ResultSet res = null;
+
+            String cmdSQL = "SELECT * FROM PRODUTO WHERE IDPRODUTO = "+id;
+                        
+            Produto pro = new Produto();
+                
+        try {
+                stmt = con.prepareStatement(cmdSQL);
+                res = stmt.executeQuery();
+                
+                while(res.next()){
+                    pro.setIdProduto(res.getInt("IDCLIENTE"));
+                    pro.setNome(res.getString("NOME"));
+                    pro.setPreco(res.getFloat("PRECO"));
+                    pro.setAltura(res.getFloat("ALTURA"));
+                    pro.setLargura(res.getFloat("LARGURA"));
+                    pro.setPeso(res.getFloat("PESO"));
+                    //pro.setCategoria(res.getCategoria("ID_CATEGORIA")); -- TÁ BUGANDO KKK
+                    
+                }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao buscar! \nERRO: "+ex);
+        }finally{
+                ConnectionFactory.closeConnection(con, stmt, res);
+            }  
+        
+        return pro;
     }
     
 }
