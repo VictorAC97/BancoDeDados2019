@@ -26,7 +26,7 @@ public class TelaCadastroCaminhao extends javax.swing.JInternalFrame {
         ModeloDAO dao2 = new ModeloDAO();
           
           dao2.read().forEach((m) -> {
-              cbMarca.addItem(m);
+              cbModelo.addItem(m);
         });
           
           
@@ -92,6 +92,9 @@ public class TelaCadastroCaminhao extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Marca:");
 
+        cbMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-" }));
+
+        cbModelo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-" }));
         cbModelo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbModeloActionPerformed(evt);
