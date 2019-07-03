@@ -30,11 +30,10 @@ public class VeiculoDAO {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, v.getPlaca());
             stmt.setInt(2, v.getAnofab());
-            stmt.setString(3, v.getMarca().getNome());
-            stmt.setString(4, v.getModelo().getNome());
+            stmt.setInt(3, v.getMarca().getIdmarca());
+            stmt.setInt(4, v.getModelo().getIdmodelo());
             stmt.setString(5, v.getLocal_uf());
             stmt.setString(6, v.getLocal_cep());
-            
             
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Veiculo cadastrado.");

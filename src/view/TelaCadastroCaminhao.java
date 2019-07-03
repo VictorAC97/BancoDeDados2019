@@ -16,6 +16,7 @@ public class TelaCadastroCaminhao extends javax.swing.JInternalFrame {
     
     public TelaCadastroCaminhao() {
         initComponents();
+        
         MarcaDAO dao = new MarcaDAO();
           
           dao.read().forEach((m) -> {
@@ -41,13 +42,17 @@ public class TelaCadastroCaminhao extends javax.swing.JInternalFrame {
         modelo.setNumRows(0);
         VeiculoDAO dao = new VeiculoDAO();
         
-       /* for(Veiculo v: dao.consultaVeiculo()){
+       for(Veiculo v: dao.read()){
             
             modelo.addRow(new Object[]{
                 v.getPlaca(),
-                v.getId_modelo()
+                v.getAnofab(),
+                v.getMarca(),
+                v.getModelo(),
+                v.getLocal_uf(),
+                v.getLocal_cep()
             });
-        }*/
+        }
 
     }
 
@@ -283,7 +288,7 @@ public class TelaCadastroCaminhao extends javax.swing.JInternalFrame {
         Veiculo v = new Veiculo();
         VeiculoDAO dao = new VeiculoDAO();
         
-        
+     
         String placa = txtPlaca.getText();
         int anofab = Integer.parseInt(txtAnofab.getText());
         Marca mar = (Marca) cbMarca.getSelectedItem();
@@ -300,6 +305,12 @@ public class TelaCadastroCaminhao extends javax.swing.JInternalFrame {
         
         dao.create(v);
         preencherJTable();
+        
+        txtPlaca.setText("");
+        txtAnofab.setText("");
+        txtUf.setText("");
+        txtCep.setText("");
+        
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed

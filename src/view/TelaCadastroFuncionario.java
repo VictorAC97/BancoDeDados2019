@@ -87,7 +87,7 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Profissão:");
 
-        cbTipoFuncionario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "OPERADOR", "MOTORISTA" }));
+        cbTipoFuncionario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "MOTORISTA", "OPERADOR" }));
         cbTipoFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbTipoFuncionarioActionPerformed(evt);
