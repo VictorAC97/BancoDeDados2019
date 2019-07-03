@@ -1,7 +1,7 @@
 
 package model.dao;
 
-import com.mysql.jdbc.PreparedStatement;
+import java.sql.PreparedStatement;
 import connection.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -15,6 +15,104 @@ import model.bean.Modelo;
 
 public class ModeloDAO {
 
+    private Connection con = null;
+    
+    public ModeloDAO(){
+        con = ConnectionFactory.getConnection();
+    }
+    
+    public boolean create(Modelo m){
+        
+        String sql = "INSERT INTO MODELO (NOME) VALUES (?)";
+        
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, m.getNome());
+            stmt.executeUpdate();
+            return true;
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar! \nERRO: "+ex);
+            return false;
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt);
+        }
+
+    }
+    
+    //READ
+    public List<Modelo> read(){
+        
+        String sql = "SELECT * FROM MODELO";
+        
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        List<Modelo> modelos = new ArrayList<>();
+        
+        try {
+            stmt = con.prepareStatement(sql);
+            rs = stmt.executeQuery();
+                
+            while(rs.next()){
+                Modelo m = new Modelo();
+                m.setNome(rs.getString("NOME"));
+                modelos.add(m);
+            }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel listar! \nERRO: "+ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        
+        return modelos;
+    }
+    
+    //UPDATE
+    public void update(Modelo m){
+        
+        String sql = "UPDATE MODELO SET (NOME) = ? WHERE IDMODELO = ?";
+        
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, m.getNome());
+            stmt.setInt(2, m.getIdmodelo());
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Modelo cadastrado com sucesso!");
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar! \nERRO: "+ex);          
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt);
+        }
+        
+    }
+    
+    //DELETE
+    public void delete(Modelo m){
+            
+        String cmdSQL = "DELETE FROM MODELO WHERE NOME = ?";
+        
+        PreparedStatement stmt = null;
+            
+        try{
+            stmt = (PreparedStatement) con.prepareStatement(cmdSQL);
+            stmt.setString(1, m.getNome());
+            stmt.executeUpdate();
+
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Erro ao excluir! \nERRO: "+ex);
+        }
+            
+    }
+    
+    
+    
     public void inserirModelo(Modelo m){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
