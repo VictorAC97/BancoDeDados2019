@@ -84,7 +84,6 @@ public class TelaCadastroProduto extends javax.swing.JInternalFrame {
             }
         });
 
-        cbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-" }));
         cbCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbCategoriaActionPerformed(evt);
@@ -194,8 +193,7 @@ public class TelaCadastroProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void cbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCategoriaActionPerformed
-        CategoriaDAO dao = new CategoriaDAO();
-        //List categoriasdao.read();
+       
         
     }//GEN-LAST:event_cbCategoriaActionPerformed
 

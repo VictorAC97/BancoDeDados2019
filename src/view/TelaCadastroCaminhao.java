@@ -3,7 +3,11 @@ package view;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import model.bean.Marca;
+import model.bean.Modelo;
 import model.bean.Veiculo;
+import model.dao.MarcaDAO;
+import model.dao.ModeloDAO;
 import model.dao.VeiculoDAO;
 
 
@@ -12,6 +16,19 @@ public class TelaCadastroCaminhao extends javax.swing.JInternalFrame {
     
     public TelaCadastroCaminhao() {
         initComponents();
+        MarcaDAO dao = new MarcaDAO();
+          
+          dao.read().forEach((m) -> {
+              cbMarca.addItem(m);
+        });
+        
+        ModeloDAO dao2 = new ModeloDAO();
+          
+          dao2.read().forEach((m) -> {
+              cbMarca.addItem(m);
+        });
+          
+          
         DefaultTableModel modelo = (DefaultTableModel) jTVeiculo.getModel();
         jTVeiculo.setRowSorter(new TableRowSorter(modelo));
         
@@ -43,7 +60,7 @@ public class TelaCadastroCaminhao extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         txtPlaca = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtAnofab = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         cbMarca = new javax.swing.JComboBox<>();
         cbModelo = new javax.swing.JComboBox<>();
@@ -70,9 +87,6 @@ public class TelaCadastroCaminhao extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Marca:");
 
-        cbMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cbModelo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbModelo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbModeloActionPerformed(evt);
@@ -162,7 +176,7 @@ public class TelaCadastroCaminhao extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnCadastrar)
-                            .addComponent(jTextField2))))
+                            .addComponent(txtAnofab))))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(77, 77, 77)
@@ -219,7 +233,7 @@ public class TelaCadastroCaminhao extends javax.swing.JInternalFrame {
                         .addGap(23, 23, 23)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtAnofab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
                             .addComponent(cbModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -269,10 +283,22 @@ public class TelaCadastroCaminhao extends javax.swing.JInternalFrame {
         Veiculo v = new Veiculo();
         VeiculoDAO dao = new VeiculoDAO();
         
-        String nome = txtPlaca.getText();
-        v.setPlaca(nome.toUpperCase());
-        //dao.create(c);
-        dao.inserirVeiculo(v);
+        
+        String placa = txtPlaca.getText();
+        int anofab = Integer.parseInt(txtAnofab.getText());
+        Marca mar = (Marca) cbMarca.getSelectedItem();
+        Modelo mod = (Modelo) cbModelo.getSelectedItem();        
+        String local_uf = txtUf.getText();
+        String local_cep = txtCep.getText();
+        
+        v.setPlaca(placa.toUpperCase());
+        v.setAnofab(anofab);
+        v.setMarca(mar);
+        v.setModelo(mod);
+        v.setLocal_uf(local_uf);
+        v.setLocal_cep(local_cep);
+        
+        dao.create(v);
         preencherJTable();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
@@ -308,8 +334,8 @@ public class TelaCadastroCaminhao extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnListar;
     private javax.swing.JButton btnRemover;
-    private javax.swing.JComboBox<String> cbMarca;
-    private javax.swing.JComboBox<String> cbModelo;
+    private javax.swing.JComboBox<Object> cbMarca;
+    private javax.swing.JComboBox<Object> cbModelo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -320,7 +346,7 @@ public class TelaCadastroCaminhao extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTVeiculo;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField txtAnofab;
     private javax.swing.JTextField txtCep;
     private javax.swing.JTextField txtPlaca;
     private javax.swing.JTextField txtUf;
