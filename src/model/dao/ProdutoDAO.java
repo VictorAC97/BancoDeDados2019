@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import model.bean.Categoria;
 import model.bean.Produto;
 
 /**
@@ -71,6 +72,7 @@ public class ProdutoDAO {
             while(rs.next()){
                 Produto p = new Produto();
                 p.setNome(rs.getString("NOME"));
+                
                 produtos.add(p);
             }
             

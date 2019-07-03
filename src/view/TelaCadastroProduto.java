@@ -194,7 +194,9 @@ public class TelaCadastroProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void cbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCategoriaActionPerformed
-        // TODO add your handling code here:
+        CategoriaDAO dao = new CategoriaDAO();
+        //List categoriasdao.read();
+        
     }//GEN-LAST:event_cbCategoriaActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
@@ -211,7 +213,7 @@ public class TelaCadastroProduto extends javax.swing.JInternalFrame {
         p.setPreco(Float.parseFloat(txtPrecoProduto.getText()));
         p.setCategoria(c);
         
-        dao.inserirProduto(p);
+        dao.create(p);
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
 

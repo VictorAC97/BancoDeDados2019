@@ -24,13 +24,13 @@ public class TelaCadastroCaminhao extends javax.swing.JInternalFrame {
         modelo.setNumRows(0);
         VeiculoDAO dao = new VeiculoDAO();
         
-        for(Veiculo v: dao.consultaVeiculo()){
+       /* for(Veiculo v: dao.consultaVeiculo()){
             
             modelo.addRow(new Object[]{
                 v.getPlaca(),
                 v.getId_modelo()
             });
-        }
+        }*/
 
     }
 
