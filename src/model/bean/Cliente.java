@@ -102,5 +102,10 @@ public class Cliente {
         this.compl = compl;
     }
     
+    @Override
+    public String toString(){
+        return getNome();
+    }    
+    
     
 }//classCliente

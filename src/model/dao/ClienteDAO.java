@@ -143,11 +143,8 @@ public class ClienteDAO {
                 List<Cliente> clientes = new ArrayList<>();
                 
             try{
-
                 
-                String cmdSQL = "SELECT * FROM CLIENTE";
-                
-                stmt = (PreparedStatement) con.prepareStatement(cmdSQL);
+                stmt = (PreparedStatement) con.prepareStatement("SELECT * FROM CLIENTE");
                 res = stmt.executeQuery();
 
                 while(res.next()){

@@ -62,7 +62,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuPedido = new javax.swing.JMenu();
         NovoPedido = new javax.swing.JMenuItem();
         EditarPedido = new javax.swing.JMenuItem();
-        ListarPedido = new javax.swing.JMenuItem();
         RemoverPedido = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -256,19 +255,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         EditarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cart_edit.png"))); // NOI18N
         EditarPedido.setText("Editar");
-        MenuPedido.add(EditarPedido);
-
-        ListarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/table.png"))); // NOI18N
-        ListarPedido.setText("Listar");
-        ListarPedido.addActionListener(new java.awt.event.ActionListener() {
+        EditarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ListarPedidoActionPerformed(evt);
+                EditarPedidoActionPerformed(evt);
             }
         });
-        MenuPedido.add(ListarPedido);
+        MenuPedido.add(EditarPedido);
 
         RemoverPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cart_delete.png"))); // NOI18N
         RemoverPedido.setText("Remover");
+        RemoverPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RemoverPedidoActionPerformed(evt);
+            }
+        });
         MenuPedido.add(RemoverPedido);
 
         jMenuBar1.add(MenuPedido);
@@ -304,7 +304,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_RemoverFuncionarioActionPerformed
 
     private void NovoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NovoPedidoActionPerformed
-        // TODO add your handling code here:
+        TelaPedido telaPed = new TelaPedido();
+        jDesktopPaneTelaPrincipal.add(telaPed);
+        telaPed.setVisible(true);
     }//GEN-LAST:event_NovoPedidoActionPerformed
 
     private void RemoverClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoverClienteActionPerformed
@@ -329,10 +331,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jDesktopPaneTelaPrincipal.add(telaEditCli);
         telaEditCli.setVisible(true);
     }//GEN-LAST:event_EditarClienteActionPerformed
-
-    private void ListarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarPedidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ListarPedidoActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
@@ -390,6 +388,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         telaMot.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void EditarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarPedidoActionPerformed
+        TelaEditarPedido telaEdp = new TelaEditarPedido();
+        jDesktopPaneTelaPrincipal.add(telaEdp);
+        telaEdp.setVisible(true);
+    }//GEN-LAST:event_EditarPedidoActionPerformed
+
+    private void RemoverPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoverPedidoActionPerformed
+        TelaRemoverPedido telaRemPed = new TelaRemoverPedido();
+        jDesktopPaneTelaPrincipal.add(telaRemPed);
+        telaRemPed.setVisible(true);
+    }//GEN-LAST:event_RemoverPedidoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -436,7 +446,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem EditarFuncionario;
     private javax.swing.JMenuItem EditarPedido;
     private javax.swing.JMenuItem ListarCliente;
-    private javax.swing.JMenuItem ListarPedido;
     private javax.swing.JMenu MenuCaminhao;
     private javax.swing.JMenu MenuCliente;
     private javax.swing.JMenu MenuFuncionario;
