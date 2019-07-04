@@ -5,18 +5,23 @@
  */
 package view;
 
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import connection.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.bean.Cliente;
 import model.bean.Funcionario;
+import model.bean.Motorista;
 import model.dao.ClienteDAO;
 import model.dao.FuncionarioDAO;
+import model.dao.MotoristaDAO;
 
 /**
  *
@@ -29,9 +34,10 @@ public class TelaMotoristas extends javax.swing.JInternalFrame {
      */
     public TelaMotoristas() {
         initComponents();
-        DefaultTableModel modelo = (DefaultTableModel) jTFuncionarios.getModel();
-        jTFuncionarios.setRowSorter(new TableRowSorter(modelo));
+        DefaultTableModel modelo = (DefaultTableModel) jTMotorista.getModel();
+        jTMotorista.setRowSorter(new TableRowSorter(modelo));
         
+        preencherJTMotorista();
         preencherJTable();
     }
     
@@ -52,9 +58,23 @@ public class TelaMotoristas extends javax.swing.JInternalFrame {
                 f.getDataent()
             });
         }
-        
-    
     }
+    public void preencherJTMotorista(){
+        DefaultTableModel modelo = (DefaultTableModel) jTMotorista.getModel();
+        modelo.setNumRows(0);
+        MotoristaDAO dao = new MotoristaDAO();
+        
+        for(Motorista m: dao.listarMotorista()){
+            
+            modelo.addRow(new Object[]{
+                m.getId_funcionario(),
+                m.getCnh(),
+                m.getMultas(),
+                m.getValidade()
+            });
+        }
+    }
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -72,16 +92,17 @@ public class TelaMotoristas extends javax.swing.JInternalFrame {
         btnAtualizar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         txtMatricula = new javax.swing.JTextField();
-        btnEditar1 = new javax.swing.JButton();
+        btnAdicionar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTMotorista = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtCnh = new javax.swing.JTextField();
         txtMultas = new javax.swing.JTextField();
         txtValidade = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnDeletar = new javax.swing.JButton();
+        btnLimpar = new javax.swing.JButton();
 
         setClosable(true);
         setResizable(true);
@@ -92,11 +113,11 @@ public class TelaMotoristas extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "MATRICULA", "NOME", "SEXO", "TELEFONE", "HORAS", "TIPO", "DATAENT"
+                "MATRICULA", "NOME", "SEXO", "TELEFONE", "HORAS", "DATAENT"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -127,14 +148,14 @@ public class TelaMotoristas extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Matricula:");
 
-        btnEditar1.setText("Adicionar");
-        btnEditar1.addActionListener(new java.awt.event.ActionListener() {
+        btnAdicionar.setText("Adicionar");
+        btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditar1ActionPerformed(evt);
+                btnAdicionarActionPerformed(evt);
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTMotorista.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -142,7 +163,12 @@ public class TelaMotoristas extends javax.swing.JInternalFrame {
                 "MATRICULA", "CNH", "MULTAS", "VALIDADE"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jTMotorista.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTMotoristaMouseReleased(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTMotorista);
 
         jLabel1.setText("CNH:");
 
@@ -150,7 +176,19 @@ public class TelaMotoristas extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Validade:");
 
-        jButton1.setText("Deletar");
+        btnDeletar.setText("Deletar");
+        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarActionPerformed(evt);
+            }
+        });
+
+        btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -170,7 +208,7 @@ public class TelaMotoristas extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtMatricula))
-                            .addComponent(btnEditar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAdicionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -180,11 +218,14 @@ public class TelaMotoristas extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtValidade)))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnDeletar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnLimpar))
                         .addGap(10, 10, 10)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -206,20 +247,21 @@ public class TelaMotoristas extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(txtMultas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtMultas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnLimpar))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(txtValidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))
+                            .addComponent(btnDeletar))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnEditar)
                             .addComponent(btnAtualizar)
-                            .addComponent(btnEditar1))
+                            .addComponent(btnAdicionar))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -236,54 +278,105 @@ public class TelaMotoristas extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnEditar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEditar1ActionPerformed
+    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+        Motorista m = new Motorista();
+        MotoristaDAO dao = new MotoristaDAO();
+        
+        Date d = new Date();
+        //d =  txtValidade.getText();
+        SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
+
+        
+        m.setId_funcionario(Integer.parseInt(txtMatricula.getText()));
+        m.setCnh(txtCnh.getText());
+        m.setMultas(Integer.parseInt(txtMultas.getText()));
+        //m.setValidade(sdt.format(d));
+        
+        dao.inserirMotorista(m);
+        preencherJTMotorista();
+            
+            txtMatricula.setText("");
+            txtCnh.setText("");
+            txtMultas.setText("");
+            txtValidade.setText("");
+    }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
-        preencherJTable();
+        preencherJTMotorista();
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if(jTFuncionarios.getSelectedRow() != -1){
 
-            Funcionario f = new Funcionario();
-            FuncionarioDAO dao = new FuncionarioDAO();
+            Motorista m = new Motorista();
+            MotoristaDAO dao = new MotoristaDAO();
 
-            f.setIdfuncionario(Integer.parseInt(txtMatricula.getText()));
-            f.setNome(txtNomeFuncionario.getText().toUpperCase());
-            f.setTelefone(txtTelefone.getText());
-            f.setSexo(txtSexo.getText().toUpperCase());
-            f.setHoras(Integer.parseInt(txtHoras.getText()));
+            m.setId_funcionario(Integer.parseInt(txtMatricula.getText()));
+            m.setCnh(txtCnh.getText().toUpperCase());
+            m.setMultas(Integer.parseInt(txtMultas.getText()));
+            String s = txtValidade.getText();
+            
 
-            dao.editarFuncionario(f);  //EDITA NO BANCO DE DADOS
+            dao.editarMotorista(m);  //EDITA NO BANCO DE DADOS
 
             //LIMPAR OS CAMPOS DE CADASTRO CLIENTE
-            txtNomeFuncionario.setText("");
-            txtTelefone.setText("");
-            txtSexo.setText("");
-            txtHoras.setText("");
+            txtMatricula.setText("");
+            txtCnh.setText("");
+            txtMultas.setText("");
+            txtValidade.setText("");
 
-            preencherJTable();
+            preencherJTMotorista();
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void jTFuncionariosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFuncionariosMouseReleased
         if(jTFuncionarios.getSelectedRow() != -1){
             txtMatricula.setText(jTFuncionarios.getValueAt(jTFuncionarios.getSelectedRow(), 0).toString());
-            txtNomeFuncionario.setText(jTFuncionarios.getValueAt(jTFuncionarios.getSelectedRow(), 1).toString());
-            txtSexo.setText(jTFuncionarios.getValueAt(jTFuncionarios.getSelectedRow(), 2).toString());
-            txtTelefone.setText(jTFuncionarios.getValueAt(jTFuncionarios.getSelectedRow(), 3).toString());
-            txtHoras.setText(jTFuncionarios.getValueAt(jTFuncionarios.getSelectedRow(), 4).toString());
         }
     }//GEN-LAST:event_jTFuncionariosMouseReleased
 
+    private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
+        if(jTMotorista.getSelectedRow() != -1){
+            Motorista m = new Motorista();
+            MotoristaDAO dao = new MotoristaDAO();
+
+            m.setId_funcionario(Integer.parseInt(txtMatricula.getText()));
+            m.setCnh(txtCnh.getText().toUpperCase());
+            m.setMultas(Integer.parseInt(txtMultas.getText()));
+            String s = txtValidade.getText();
+            dao.removerMotorista(m);
+            preencherJTMotorista();
+            
+            txtMatricula.setText("");
+            txtCnh.setText("");
+            txtMultas.setText("");
+            txtValidade.setText("");
+        }
+    }//GEN-LAST:event_btnDeletarActionPerformed
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+            txtMatricula.setText("");
+            txtCnh.setText("");
+            txtMultas.setText("");
+            txtValidade.setText("");
+    }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void jTMotoristaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTMotoristaMouseReleased
+        if(jTMotorista.getSelectedRow() != -1){
+            txtMatricula.setText(jTMotorista.getValueAt(jTMotorista.getSelectedRow(), 0).toString());
+            txtCnh.setText((String) jTMotorista.getValueAt(jTMotorista.getSelectedRow(), 1).toString());
+            txtMultas.setText(jTMotorista.getValueAt(jTMotorista.getSelectedRow(),2).toString());
+            txtValidade.setText(jTMotorista.getValueAt(jTMotorista.getSelectedRow(),3).toString());
+        }
+    }//GEN-LAST:event_jTMotoristaMouseReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdicionar;
     private javax.swing.JButton btnAtualizar;
+    private javax.swing.JButton btnDeletar;
     private javax.swing.JButton btnEditar;
-    private javax.swing.JButton btnEditar1;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnLimpar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -292,7 +385,7 @@ public class TelaMotoristas extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTFuncionarios;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTMotorista;
     private javax.swing.JTextField txtCnh;
     private javax.swing.JTextField txtMatricula;
     private javax.swing.JTextField txtMultas;

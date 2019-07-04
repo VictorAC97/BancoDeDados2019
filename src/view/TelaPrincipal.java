@@ -379,7 +379,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_CadastrarProdutoActionPerformed
 
     private void EditarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarFuncionarioActionPerformed
-        TelaListarFuncionarios telaListFun = new TelaListarFuncionarios();
+        TelaEditarFuncionarios telaListFun = new TelaEditarFuncionarios();
         jDesktopPaneTelaPrincipal.add(telaListFun);
         telaListFun.setVisible(true);
     }//GEN-LAST:event_EditarFuncionarioActionPerformed
