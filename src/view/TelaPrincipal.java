@@ -256,6 +256,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         EditarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cart_edit.png"))); // NOI18N
         EditarPedido.setText("Editar");
+        EditarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditarPedidoActionPerformed(evt);
+            }
+        });
         MenuPedido.add(EditarPedido);
 
         ListarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/table.png"))); // NOI18N
@@ -391,6 +396,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jDesktopPaneTelaPrincipal.add(telaMot);
         telaMot.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void EditarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarPedidoActionPerformed
+        TelaEditarPedido telaEdp = new TelaEditarPedido();
+        jDesktopPaneTelaPrincipal.add(telaEdp);
+        telaEdp.setVisible(true);
+    }//GEN-LAST:event_EditarPedidoActionPerformed
 
     /**
      * @param args the command line arguments
