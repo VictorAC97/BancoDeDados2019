@@ -5,6 +5,8 @@ public class Marca {
     private int idmarca;
     private String nome;
 
+    public Marca() {
+    }
 
     public int getIdmarca() {
         return idmarca;
@@ -21,4 +23,10 @@ public class Marca {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    @Override
+    public String toString() {
+        return getNome();
+    }
+    
 }

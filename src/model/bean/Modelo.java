@@ -5,6 +5,8 @@ public class Modelo {
     private int idmodelo;
     private String nome;
 
+    public Modelo() {
+    }
 
     public int getIdmodelo() {
         return idmodelo;
@@ -21,4 +23,11 @@ public class Modelo {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    @Override
+    public String toString() {
+        return getNome();
+    }
+    
+    
 }

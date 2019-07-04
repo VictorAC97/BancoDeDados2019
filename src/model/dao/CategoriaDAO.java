@@ -30,13 +30,14 @@ public class CategoriaDAO {
     //CREATE
     public boolean create(Categoria c){
         
-        String sql = "INSERT INTO CATEGORIA (NOME) VALUES (?)";
+        String sql = "INSERT INTO CATEGORIA VALUES (?,?)";
         
         PreparedStatement stmt = null;
         
         try {
             stmt = con.prepareStatement(sql);
-            stmt.setString(1, c.getNome());
+            stmt.setInt(1,c.getIdcategoria());
+            stmt.setString(2, c.getNome());
             stmt.executeUpdate();
             return true;
             
@@ -65,6 +66,7 @@ public class CategoriaDAO {
                 
             while(rs.next()){
                 Categoria c = new Categoria();
+                c.setIdcategoria(rs.getInt("IDCATEGORIA"));
                 c.setNome(rs.getString("NOME"));
                 categorias.add(c);
             }
@@ -81,7 +83,7 @@ public class CategoriaDAO {
     //UPDATE
     public void update(Categoria c){
         
-        String sql = "UPDATE CATEGORIA SET (NOME) = ? WHERE ID = ?";
+        String sql = "UPDATE CATEGORIA SET NOME = ? WHERE IDCATEGORIA = ?";
         
         PreparedStatement stmt = null;
         
@@ -90,10 +92,10 @@ public class CategoriaDAO {
             stmt.setString(1, c.getNome());
             stmt.setInt(2, c.getIdcategoria());
             stmt.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Categoria cadastrada com sucesso!");
+            JOptionPane.showMessageDialog(null, "Categoria atualizada com sucesso!");
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar! \nERRO: "+ex);          
+            JOptionPane.showMessageDialog(null, "Não foi possivel atualizar! \nERRO: "+ex);          
         }finally{
             ConnectionFactory.closeConnection(con, stmt);
         }
@@ -103,85 +105,19 @@ public class CategoriaDAO {
     //DELETE
     public void delete(Categoria c){
             
-        String cmdSQL = "DELETE FROM CATEGORIA WHERE NOME = ?";
+        String cmdSQL = "DELETE FROM CATEGORIA WHERE IDCATEGORIA = ?";
         
         PreparedStatement stmt = null;
             
         try{
             stmt = (PreparedStatement) con.prepareStatement(cmdSQL);
-            stmt.setString(1, c.getNome());
+            stmt.setInt(1, c.getIdcategoria());
             stmt.executeUpdate();
 
         }catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "Erro ao excluir! \nERRO: "+ex);
         }
             
-    }
-    
-//------------------------------------------------------------------------------    
-    public void inserirCategoria(Categoria c){
-        Connection con = ConnectionFactory.getConnection();
-        PreparedStatement stmt = null;
-            String cmdSQL = "INSERT INTO CATEGORIA(NOME) VALUES(?)";
-                
-        try{
-            stmt = (PreparedStatement) con.prepareStatement(cmdSQL);
-            stmt.setString(1, c.getNome());         //pega o nome
-            
-            //preparando a sql para executar/update,usamos o executeUpdate porque é um comando DML(Manipulacao de dados).
-            stmt.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Categoria cadastrada com sucesso!");
-        
-        } catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar! \nERRO: "+ex);
-        }finally{
-            ConnectionFactory.closeConnection(con, stmt);
-        }           
-    }
-    
-    public void removerCategoria(Categoria c){
-        Connection con = ConnectionFactory.getConnection();
-        PreparedStatement stmt = null;
-            String cmdSQL = "DELETE FROM CATEGORIA WHERE NOME = ?";
-            
-            try{
-                stmt = (PreparedStatement) con.prepareStatement(cmdSQL);
-                stmt.setString(1, c.getNome());
-                stmt.executeUpdate();
-
-                JOptionPane.showMessageDialog(null, "Categoria removida com sucesso!");
-
-            }catch(SQLException ex){
-                JOptionPane.showMessageDialog(null, "Erro ao excluir! \nERRO: "+ex);
-            }
-            
-    }
-    
-    public List<Categoria> consultaCategoria(){
-        Connection con = ConnectionFactory.getConnection();
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        
-        List<Categoria> categorias = new ArrayList<>();
-        
-        try {
-            
-            stmt = (PreparedStatement) con.prepareStatement("SELECT * FROM CATEGORIA");
-            rs = stmt.executeQuery();
-            
-            while(rs.next()){  
-                Categoria categoria = new Categoria();
-                categoria.setNome(rs.getString("NOME"));
-                categorias.add(categoria);
-            }
-            
-
-        } catch (SQLException ex) {
-            
-        }finally{
-            ConnectionFactory.closeConnection(con, stmt, rs);
-        }
-        return categorias;
     }
     
 }
