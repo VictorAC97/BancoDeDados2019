@@ -22,13 +22,14 @@ public class MarcaDAO {
     
     public boolean create(Marca m){
         
-        String sql = "INSERT INTO MARCA (NOME) VALUES (?)";
+        String sql = "INSERT INTO MARCA (NOME,IDMARCA) VALUES (?,?)";
         
         PreparedStatement stmt = null;
         
         try {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, m.getNome());
+            stmt.setInt(2, m.getIdmarca());
             stmt.executeUpdate();
             return true;
             
@@ -73,7 +74,7 @@ public class MarcaDAO {
     //UPDATE
     public void update(Marca m){
         
-        String sql = "UPDATE MARCA SET (NOME) = ? WHERE IDMARCA = ?";
+        String sql = "UPDATE MARCA SET NOME = ? WHERE IDMARCA = ?";
         
         PreparedStatement stmt = null;
         

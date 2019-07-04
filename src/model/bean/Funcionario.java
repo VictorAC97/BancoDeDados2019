@@ -7,9 +7,13 @@ public class Funcionario {
     private int idfuncionario;
     private String nome;
     private String telefone;
-    private Date dataent;
+    private String dataent;
     private int horas;
     private int id_tipo_funcionario;
+
+    public String getId() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     private enum sexo{
         M, F;
@@ -40,11 +44,11 @@ public class Funcionario {
         this.telefone = telefone;
     }
 
-    public Date getDataent() {
+    public String getDataent() {
         return dataent;
     }
 
-    public void setDataent(Date dataent) {
+    public void setDataent(String dataent) {
         this.dataent = dataent;
     }
 

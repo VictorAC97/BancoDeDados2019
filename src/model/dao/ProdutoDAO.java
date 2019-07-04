@@ -31,16 +31,17 @@ public class ProdutoDAO {
         
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
-            String cmdSQL = "INSERT INTO PRODUTO(NOME,PRECO,PESO,ALTURA,LARGURA,ID_CATEGORIA) VALUES(?,?,?,?,?,?)";
-                                                                                                  //(1,2,3,4,5,6)                  
+            String cmdSQL = "INSERT INTO PRODUTO(IDPRODUTO,NOME,PRECO,PESO,ALTURA,LARGURA,ID_CATEGORIA) VALUES(?,?,?,?,?,?,?)";
+                                                                                                            //(1,2,3,4,5,6,7)                  
         try{
             stmt = (PreparedStatement) con.prepareStatement(cmdSQL);
-            stmt.setString(1, p.getNome());           //pega a descricao
-            stmt.setFloat(2, p.getPreco());         //pega o preco
-            stmt.setFloat(3, p.getPeso());     //pega o peso
-            stmt.setFloat(4, p.getAltura());           //pega a altura
-            stmt.setFloat(5, p.getLargura());          //pega a largura
-            stmt.setInt(6, p.getCategoria().getIdcategoria());       //pega o id da categoria (orientacao a objeto)
+            stmt.setInt(1, p.getIdProduto());           //pega a descricao
+            stmt.setString(2, p.getNome());           //pega a descricao
+            stmt.setFloat(3, p.getPreco());         //pega o preco
+            stmt.setFloat(4, p.getPeso());     //pega o peso
+            stmt.setFloat(5, p.getAltura());           //pega a altura
+            stmt.setFloat(6, p.getLargura());          //pega a largura
+            stmt.setInt(7, p.getCategoria().getIdcategoria());       //pega o id da categoria (orientacao a objeto)
             
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Produto cadastrado.");
@@ -86,17 +87,22 @@ public class ProdutoDAO {
     
     public void update(Produto p){
         
-        String sql = "UPDATE PRODUTO SET (NOME) = ? WHERE IDPRODUTO = ?";
+        String sql = "UPDATE PRODUTO SET NOME = ?,PRECO = ?,PESO = ?,ALTURA = ?,LARGURA = ?,ID_CATEGORIA = ? WHERE IDPRODUTO = ?";
         
         PreparedStatement stmt = null;
         
         try {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, p.getNome());
-            stmt.setInt(2, p.getIdProduto());
+            stmt.setFloat(2, p.getPreco());         //pega o preco
+            stmt.setFloat(3, p.getPeso());     //pega o peso
+            stmt.setFloat(4, p.getAltura());           //pega a altura
+            stmt.setFloat(5, p.getLargura());          //pega a largura
+            stmt.setInt(6, p.getCategoria().getIdcategoria());       //pega o id da categoria (orientacao a objeto)
+            stmt.setInt(7, p.getIdProduto());
             
             stmt.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Produto atualizado com sucesso!");
             
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar! \nERRO: "+ex);          
@@ -108,13 +114,13 @@ public class ProdutoDAO {
     
     public void delete(Produto v){
             
-        String cmdSQL = "DELETE FROM PRODUTO WHERE NOME = ?";
+        String cmdSQL = "DELETE FROM PRODUTO WHERE IDPRODUTO = ?";
         
         PreparedStatement stmt = null;
             
         try{
             stmt = (PreparedStatement) con.prepareStatement(cmdSQL);
-            stmt.setString(1, v.getNome());
+            stmt.setInt(1, v.getIdProduto());
             stmt.executeUpdate();
 
         }catch(SQLException ex){

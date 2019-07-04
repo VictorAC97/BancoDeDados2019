@@ -5,9 +5,7 @@
  */
 package view;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import model.bean.Funcionario;
 import model.bean.Tipo_Funcionario;
@@ -202,14 +200,17 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
         FuncionarioDAO dao = new FuncionarioDAO();
         
         Date d = new Date();
-        //SimpleDateFormat s = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
+        //System.out.println("data: "+s.format(d));
         
+        String sexo = cbSexoFuncionario.getSelectedItem().toString();
         
         f.setIdfuncionario(Integer.parseInt(txtIdFuncionario.getText()));
         f.setNome(txtNomeFuncionario.getText());
         f.setTelefone(txtTelefoneFuncionario.getText());
-        f.setDataent(d);
+        f.setDataent(sdt.format(d));
         f.setHoras(Integer.parseInt(txtHorasFuncionario.getText()));
+        f.setSexo(sexo);
         
         dao.inserirFuncionario(f);
         
@@ -226,7 +227,7 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
-    private javax.swing.JComboBox<String> cbSexoFuncionario;
+    private javax.swing.JComboBox<Object> cbSexoFuncionario;
     private javax.swing.JComboBox<String> cbTipoFuncionario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

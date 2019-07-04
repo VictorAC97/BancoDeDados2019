@@ -23,13 +23,14 @@ public class ModeloDAO {
     
     public boolean create(Modelo m){
         
-        String sql = "INSERT INTO MODELO (NOME) VALUES (?)";
+        String sql = "INSERT INTO MODELO (NOME,IDMODELO) VALUES (?,?)";
         
         PreparedStatement stmt = null;
         
         try {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, m.getNome());
+            stmt.setInt(2, m.getIdmodelo());
             stmt.executeUpdate();
             return true;
             
@@ -74,7 +75,7 @@ public class ModeloDAO {
     //UPDATE
     public void update(Modelo m){
         
-        String sql = "UPDATE MODELO SET (NOME) = ? WHERE IDMODELO = ?";
+        String sql = "UPDATE MODELO SET NOME = ? WHERE IDMODELO = ?";
         
         PreparedStatement stmt = null;
         
