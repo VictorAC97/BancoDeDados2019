@@ -53,8 +53,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuFuncionario = new javax.swing.JMenu();
         CadastrarFuncionario = new javax.swing.JMenuItem();
         EditarFuncionario = new javax.swing.JMenuItem();
-        ListarFuncionario = new javax.swing.JMenuItem();
         RemoverFuncionario = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         MenuCaminhao = new javax.swing.JMenu();
         CadastrarCaminhao = new javax.swing.JMenuItem();
         CadastrarMarca = new javax.swing.JMenuItem();
@@ -183,16 +183,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         EditarFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/group_edit.png"))); // NOI18N
         EditarFuncionario.setText("Editar");
-        MenuFuncionario.add(EditarFuncionario);
-
-        ListarFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/table.png"))); // NOI18N
-        ListarFuncionario.setText("Listar");
-        ListarFuncionario.addActionListener(new java.awt.event.ActionListener() {
+        EditarFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ListarFuncionarioActionPerformed(evt);
+                EditarFuncionarioActionPerformed(evt);
             }
         });
-        MenuFuncionario.add(ListarFuncionario);
+        MenuFuncionario.add(EditarFuncionario);
 
         RemoverFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/group_delete.png"))); // NOI18N
         RemoverFuncionario.setText("Remover");
@@ -202,6 +198,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         MenuFuncionario.add(RemoverFuncionario);
+
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/car.png"))); // NOI18N
+        jMenuItem1.setText("Motoristas");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        MenuFuncionario.add(jMenuItem1);
 
         jMenuBar1.add(MenuFuncionario);
 
@@ -329,10 +334,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ListarPedidoActionPerformed
 
-    private void ListarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarFuncionarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ListarFuncionarioActionPerformed
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowOpened
@@ -376,6 +377,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jDesktopPaneTelaPrincipal.add(telaCadProd);
         telaCadProd.setVisible(true);
     }//GEN-LAST:event_CadastrarProdutoActionPerformed
+
+    private void EditarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarFuncionarioActionPerformed
+        TelaListarFuncionarios telaListFun = new TelaListarFuncionarios();
+        jDesktopPaneTelaPrincipal.add(telaListFun);
+        telaListFun.setVisible(true);
+    }//GEN-LAST:event_EditarFuncionarioActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        TelaMotoristas telaMot = new TelaMotoristas();
+        jDesktopPaneTelaPrincipal.add(telaMot);
+        telaMot.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -423,7 +436,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem EditarFuncionario;
     private javax.swing.JMenuItem EditarPedido;
     private javax.swing.JMenuItem ListarCliente;
-    private javax.swing.JMenuItem ListarFuncionario;
     private javax.swing.JMenuItem ListarPedido;
     private javax.swing.JMenu MenuCaminhao;
     private javax.swing.JMenu MenuCliente;
@@ -439,6 +451,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem Sair;
     private javax.swing.JDesktopPane jDesktopPaneTelaPrincipal;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem5;
     // End of variables declaration//GEN-END:variables
 }

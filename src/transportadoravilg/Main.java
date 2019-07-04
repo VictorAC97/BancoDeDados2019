@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package transportadoravilg;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import model.bean.Categoria;
 import model.dao.CategoriaDAO;
@@ -20,7 +22,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {    
-        
+
         TelaPrincipal telapri = new TelaPrincipal();
         telapri.setVisible(true);  
 
