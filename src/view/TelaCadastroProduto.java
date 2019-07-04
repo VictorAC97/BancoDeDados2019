@@ -173,6 +173,12 @@ public class TelaCadastroProduto extends javax.swing.JInternalFrame {
 
         jLabel7.setText("ID:");
 
+        txtIdProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdProdutoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -369,6 +375,10 @@ public class TelaCadastroProduto extends javax.swing.JInternalFrame {
         }        // TODO add your handling code here:      
     
     }//GEN-LAST:event_jTProdutosMouseReleased
+
+    private void txtIdProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdProdutoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
