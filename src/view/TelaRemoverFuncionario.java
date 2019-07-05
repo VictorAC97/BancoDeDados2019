@@ -103,7 +103,7 @@ public class TelaRemoverFuncionario extends javax.swing.JInternalFrame {
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
         Funcionario f = new Funcionario();
         FuncionarioDAO dao = new FuncionarioDAO();
-
+        
         //faz um busca e retorna a caixa abaixo com as infos
         f.setIdfuncionario(Integer.parseInt(txtIdFuncionario.getText()));
         dao.removerFuncionario(f);

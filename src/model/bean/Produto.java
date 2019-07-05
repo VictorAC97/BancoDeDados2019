@@ -1,29 +1,34 @@
 package model.bean;
 
-public class Produto {
 
-    private int idproduto;
+public class Produto{
+    
+    private int idProduto;
     private String nome;
     private float preco;
-    private float peso;
     private float altura;
     private float largura;
-    private int id_categoria;
+    private float peso;
+    private Categoria categoria;
 
-    public int getId_categoria() {
-        return id_categoria;
+    public Produto(){
     }
 
-    public void setId_categoria(int id_categoria) {
-        this.id_categoria = id_categoria;
+    public Produto(String nome, float preco, float altura, float largura, float peso, Categoria categoria){
+        this.nome = nome;
+        this.preco = preco;
+        this.altura = altura;
+        this.largura = largura;
+        this.peso = peso;
+        this.categoria = categoria;
+    }
+    
+    public int getIdProduto() {
+        return idProduto;
     }
 
-    public int getIdproduto() {
-        return idproduto;
-    }
-
-    public void setIdproduto(int idproduto) {
-        this.idproduto = idproduto;
+    public void setIdProduto(int idProduto) {
+        this.idProduto = idProduto;
     }
 
     public String getNome() {
@@ -42,14 +47,6 @@ public class Produto {
         this.preco = preco;
     }
 
-    public float getPeso() {
-        return peso;
-    }
-
-    public void setPeso(float peso) {
-        this.peso = peso;
-    }
-
     public float getAltura() {
         return altura;
     }
@@ -65,4 +62,26 @@ public class Produto {
     public void setLargura(float largura) {
         this.largura = largura;
     }
+
+    public float getPeso() {
+        return peso;
+    }
+
+    public void setPeso(float peso) {
+        this.peso = peso;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+    
+    @Override
+    public String toString(){
+        return getNome();
+    }
+    
 }

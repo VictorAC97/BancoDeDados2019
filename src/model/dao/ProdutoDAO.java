@@ -5,10 +5,13 @@
  */
 package model.dao;
 
-import com.mysql.jdbc.PreparedStatement;
 import connection.ConnectionFactory;
+import java.sql.PreparedStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import model.bean.Produto;
 
@@ -17,30 +20,146 @@ import model.bean.Produto;
  * @author Victor
  */
 public class ProdutoDAO {
-    public void inserirProduto(Produto p){
+    
+    private Connection con = null;
+    
+    public ProdutoDAO(){
+        con = ConnectionFactory.getConnection();
+    }
+    
+    public boolean create(Produto p){
         
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
-            String cmdSQL = "INSERT INTO PRODUTO(NOME,PRECO,PESO,ALTURA,LARGURA,ID_CATEGORIA) VALUES(?,?,?,?,?,?)";
-                                                                                                  //(1,2,3,4,5,6)                  
+            String cmdSQL = "INSERT INTO PRODUTO(IDPRODUTO,NOME,PRECO,PESO,ALTURA,LARGURA,ID_CATEGORIA) VALUES(?,?,?,?,?,?,?)";
+                                                                                                            //(1,2,3,4,5,6,7)                  
         try{
             stmt = (PreparedStatement) con.prepareStatement(cmdSQL);
-            stmt.setString(1, p.getNome());           //pega o cpf/cnpj
-            stmt.setFloat(2, p.getPreco());         //pega o nome
-            stmt.setFloat(3, p.getPeso());     //pega o telefone
-            stmt.setFloat(4, p.getAltura());           //pega a UF
-            stmt.setFloat(5, p.getLargura());          //pega o CEP
-            stmt.setInt(6, p.getId_categoria());       //pega a cidade
+            stmt.setInt(1, p.getIdProduto());           //pega a descricao
+            stmt.setString(2, p.getNome());           //pega a descricao
+            stmt.setFloat(3, p.getPreco());         //pega o preco
+            stmt.setFloat(4, p.getPeso());     //pega o peso
+            stmt.setFloat(5, p.getAltura());           //pega a altura
+            stmt.setFloat(6, p.getLargura());          //pega a largura
+            stmt.setInt(7, p.getCategoria().getIdcategoria());       //pega o id da categoria (orientacao a objeto)
             
-            //preparando a sql para executar/update,usamos o executeUpdate porque é um comando DML(Manipulacao de dados).
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Produto cadastrado.");
+            return true;
         
         } catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar! \nERRO: "+ex);
+            return false;
         }finally{
             ConnectionFactory.closeConnection(con, stmt);
         }   
      
     }
+    
+    public List<Produto> read(){
+        
+        String sql = "SELECT * FROM PRODUTO";
+        
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        List<Produto> produtos = new ArrayList<>();
+        
+        try {
+            stmt = con.prepareStatement(sql);
+            rs = stmt.executeQuery();
+                
+            while(rs.next()){
+                Produto p = new Produto();
+                p.setNome(rs.getString("NOME"));
+                
+                produtos.add(p);
+            }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel listar! \nERRO: "+ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        
+        return produtos;
+    }
+    
+    public void update(Produto p){
+        
+        String sql = "UPDATE PRODUTO SET NOME = ?,PRECO = ?,PESO = ?,ALTURA = ?,LARGURA = ?,ID_CATEGORIA = ? WHERE IDPRODUTO = ?";
+        
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, p.getNome());
+            stmt.setFloat(2, p.getPreco());         //pega o preco
+            stmt.setFloat(3, p.getPeso());     //pega o peso
+            stmt.setFloat(4, p.getAltura());           //pega a altura
+            stmt.setFloat(5, p.getLargura());          //pega a largura
+            stmt.setInt(6, p.getCategoria().getIdcategoria());       //pega o id da categoria (orientacao a objeto)
+            stmt.setInt(7, p.getIdProduto());
+            
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Produto atualizado com sucesso!");
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar! \nERRO: "+ex);          
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt);
+        }
+        
+    }
+    
+    public void delete(Produto v){
+            
+        String cmdSQL = "DELETE FROM PRODUTO WHERE IDPRODUTO = ?";
+        
+        PreparedStatement stmt = null;
+            
+        try{
+            stmt = (PreparedStatement) con.prepareStatement(cmdSQL);
+            stmt.setInt(1, v.getIdProduto());
+            stmt.executeUpdate();
+
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Erro ao excluir! \nERRO: "+ex);
+        }
+            
+    }
+    
+    public Produto buscarProduto(int id){
+            Connection con = ConnectionFactory.getConnection();
+            PreparedStatement stmt = null;
+            ResultSet res = null;
+
+            String cmdSQL = "SELECT * FROM PRODUTO WHERE IDPRODUTO = "+id;
+                        
+            Produto pro = new Produto();
+                
+        try {
+                stmt = con.prepareStatement(cmdSQL);
+                res = stmt.executeQuery();
+                
+                while(res.next()){
+                    pro.setIdProduto(res.getInt("IDCLIENTE"));
+                    pro.setNome(res.getString("NOME"));
+                    pro.setPreco(res.getFloat("PRECO"));
+                    pro.setAltura(res.getFloat("ALTURA"));
+                    pro.setLargura(res.getFloat("LARGURA"));
+                    pro.setPeso(res.getFloat("PESO"));
+                    //pro.setCategoria(res.getCategoria("ID_CATEGORIA")); -- TÁ BUGANDO KKK
+                    
+                }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao buscar! \nERRO: "+ex);
+        }finally{
+                ConnectionFactory.closeConnection(con, stmt, res);
+            }  
+        
+        return pro;
+    }
+    
 }
